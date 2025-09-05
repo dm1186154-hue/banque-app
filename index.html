@@ -1,19 +1,55 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Banque App - Accueil</title>
+  <title>Banque Facile - Accueil</title>
   <style>
-    body { font-family: Arial, sans-serif; text-align: center; padding: 50px; background: #eef2f3; }
-    h1 { color: #333; }
-    a { text-decoration: none; padding: 10px 20px; background: #007bff; color: white; border-radius: 5px; }
-    a:hover { background: #0056b3; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #2563eb, #1e3a8a);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
+    .welcome {
+      max-width: 500px;
+      padding: 20px;
+    }
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+    }
+    a {
+      display: inline-block;
+      padding: 12px 20px;
+      margin: 5px;
+      background: #fbbf24;
+      color: black;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+    a:hover {
+      background: #f59e0b;
+    }
   </style>
 </head>
 <body>
-  <h1>Bienvenue sur Banque App</h1>
-  <p>Gérez vos finances facilement et en toute sécurité.</p>
-  <a href="login.html">Se connecter</a>
+  <div class="welcome">
+    <h1>Bienvenue sur Banque Facile</h1>
+    <p>Une application bancaire simple et rapide pour gérer vos comptes.</p>
+    <a href="login.html">Se connecter</a>
+    <a href="dashboard.html">Accéder au tableau de bord</a>
+  </div>
 </body>
 </html>
