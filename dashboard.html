@@ -3,35 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Banque App - Tableau de Bord</title>
+  <title>Dashboard - Banque App</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; background: #f9f9f9; }
+    body { font-family: Arial, sans-serif; background: #eef2f7; margin: 0; padding: 0; }
     header { background: #007bff; color: white; padding: 15px; text-align: center; }
     .container { padding: 20px; }
-    .card { background: white; padding: 20px; margin: 10px 0; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-    a { color: #007bff; text-decoration: none; }
+    .card { background: white; padding: 20px; border-radius: 10px; margin: 10px 0; box-shadow: 0 0 5px rgba(0,0,0,0.1); }
+    h2 { margin-top: 0; }
+    nav { background: #f8f9fa; padding: 10px; text-align: center; }
+    nav a { margin: 0 15px; text-decoration: none; color: #007bff; }
   </style>
 </head>
 <body>
   <header>
-    <h1>Mon Tableau de Bord</h1>
+    <h1>Banque App - Tableau de bord</h1>
   </header>
+  <nav>
+    <a href="#">Accueil</a>
+    <a href="#">Virements</a>
+    <a href="#">Transactions</a>
+    <a href="login.html">Déconnexion</a>
+  </nav>
   <div class="container">
     <div class="card">
-      <h2>Solde actuel</h2>
-      <p>1 500 000 FCFA</p>
+      <h2>Mon solde</h2>
+      <p>Solde actuel : <strong>500 000 FCFA</strong></p>
     </div>
     <div class="card">
-      <h2>Dernières transactions</h2>
+      <h2>Transactions récentes</h2>
       <ul>
-        <li>+ 250 000 FCFA (Virement reçu)</li>
-        <li>- 100 000 FCFA (Paiement facture)</li>
-        <li>- 50 000 FCFA (Retrait)</li>
+        <li>+ 200 000 FCFA (Virement reçu)</li>
+        <li>- 50 000 FCFA (Achat en ligne)</li>
+        <li>- 10 000 FCFA (Recharge mobile)</li>
       </ul>
-    </div>
-    <div class="card">
-      <a href="index.html">🔙 Déconnexion</a>
     </div>
   </div>
 </body>
-</html>
+  </html>
