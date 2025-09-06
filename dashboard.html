@@ -2,41 +2,40 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard - Banque App</title>
-  <style>
-    body { font-family: Arial, sans-serif; background: #eef2f7; margin: 0; padding: 0; }
-    header { background: #007bff; color: white; padding: 15px; text-align: center; }
-    .container { padding: 20px; }
-    .card { background: white; padding: 20px; border-radius: 10px; margin: 10px 0; box-shadow: 0 0 5px rgba(0,0,0,0.1); }
-    h2 { margin-top: 0; }
-    nav { background: #f8f9fa; padding: 10px; text-align: center; }
-    nav a { margin: 0 15px; text-decoration: none; color: #007bff; }
-  </style>
+  <title>Banque App - Tableau de bord</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
-    <h1>Banque App - Tableau de bord</h1>
+    Tableau de bord - Banque App
   </header>
-  <nav>
-    <a href="#">Accueil</a>
-    <a href="#">Virements</a>
-    <a href="#">Transactions</a>
-    <a href="login.html">Déconnexion</a>
-  </nav>
   <div class="container">
-    <div class="card">
-      <h2>Mon solde</h2>
-      <p>Solde actuel : <strong>500 000 FCFA</strong></p>
-    </div>
-    <div class="card">
-      <h2>Transactions récentes</h2>
-      <ul>
-        <li>+ 200 000 FCFA (Virement reçu)</li>
-        <li>- 50 000 FCFA (Achat en ligne)</li>
-        <li>- 10 000 FCFA (Recharge mobile)</li>
-      </ul>
-    </div>
+    <h1>Mon compte</h1>
+    <p><strong>Solde actuel :</strong> 100 000 FCFA</p>
+
+    <h2>Transactions récentes</h2>
+    <table>
+      <tr>
+        <th>Date</th>
+        <th>Description</th>
+        <th>Montant</th>
+      </tr>
+      <tr>
+        <td>01/09/2025</td>
+        <td>Dépôt</td>
+        <td>+50 000 FCFA</td>
+      </tr>
+      <tr>
+        <td>02/09/2025</td>
+        <td>Retrait</td>
+        <td>-20 000 FCFA</td>
+      </tr>
+      <tr>
+        <td>03/09/2025</td>
+        <td>Achat</td>
+        <td>-5 000 FCFA</td>
+      </tr>
+    </table>
   </div>
 </body>
-  </html>
+</html>
