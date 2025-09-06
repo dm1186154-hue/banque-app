@@ -1,77 +1,62 @@
-/* 🌍 Style global */
+/* style.css */
+
+/* Style général */
 body {
     font-family: Arial, sans-serif;
+    background-color: #f4f6f8;
     margin: 0;
     padding: 0;
-    background-color: #f4f6f9;
-    color: #333;
 }
 
-/* 🌟 En-tête */
+/* En-tête */
 header {
     background-color: #004080;
     color: white;
-    text-align: center;
     padding: 15px;
-    font-size: 22px;
-}
-
-/* 📦 Conteneur principal */
-.container {
-    max-width: 600px;
-    margin: 40px auto;
-    background: white;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-/* 📝 Titres */
-h1, h2 {
     text-align: center;
-    color: #004080;
 }
 
-/* 🔘 Boutons */
+/* Conteneur principal */
+.container {
+    width: 90%;
+    max-width: 600px;
+    margin: 30px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Boutons */
 button {
-    display: block;
-    width: 100%;
-    padding: 12px;
-    margin-top: 15px;
     background-color: #004080;
     color: white;
     border: none;
-    border-radius: 6px;
-    font-size: 16px;
+    padding: 10px 15px;
+    border-radius: 5px;
     cursor: pointer;
+    margin-top: 10px;
 }
 
 button:hover {
     background-color: #0066cc;
 }
 
-/* 🖊️ Formulaires */
-input[type="text"], input[type="password"], input[type="email"] {
-    width: 100%;
-    padding: 12px;
-    margin: 8px 0;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-}
-
-/* 📊 Tableau du dashboard */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
-}
-
-table, th, td {
-    border: 1px solid #ddd;
+/* Champs de formulaire */
+input {
+    width: 95%;
     padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
-th {
-    background-color: #004080;
-    color: white;
+/* Liens */
+a {
+    color: #004080;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
 }
