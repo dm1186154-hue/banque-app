@@ -1,34 +1,136 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tableau de bord - Banque App</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f3f4f6;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #1e3a8a;
+      color: white;
+      padding: 15px 20px;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .dashboard {
+      max-width: 900px;
+      margin: 30px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .balance {
+      text-align: center;
+      font-size: 2rem;
+      color: #1e3a8a;
+      margin-bottom: 20px;
+    }
+
+    .transactions {
+      margin-top: 20px;
+    }
+
+    .transactions h3 {
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #1e40af;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9fafb;
+    }
+
+    .btn-logout {
+      display: block;
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .btn-logout a {
+      background-color: #ef4444;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .btn-logout a:hover {
+      background-color: #dc2626;
+    }
+  </style>
 </head>
 <body>
+  <header>Banque App — Tableau de Bord</header>
+  <section class="dashboard">
+    <div class="balance">
+      Solde actuel : <strong>2 500 000 CFA</strong>
+    </div>
 
-  <!-- Logo + titre -->
-  <header>
-    <img src="logo.png" alt="Logo Banque App" class="logo">
-    <h1>Banque App</h1>
-    <p>Votre tableau de bord</p>
-  </header>
+    <div class="transactions">
+      <h3>Dernières transactions</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Montant</th>
+            <th>Statut</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>05/10/2025</td>
+            <td>Transfert à Aïcha</td>
+            <td>-50 000 CFA</td>
+            <td style="color:#dc2626;">Envoyé</td>
+          </tr>
+          <tr>
+            <td>03/10/2025</td>
+            <td>Dépôt mobile money</td>
+            <td>+150 000 CFA</td>
+            <td style="color:#16a34a;">Reçu</td>
+          </tr>
+          <tr>
+            <td>01/10/2025</td>
+            <td>Recharge Internet</td>
+            <td>-5 000 CFA</td>
+            <td style="color:#dc2626;">Envoyé</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-  <!-- Contenu principal -->
-  <main>
-    <h2>Bienvenue dans votre espace bancaire</h2>
-    <ul>
-      <li>Solde actuel : 1 250 000 FCFA</li>
-      <li>Dernière transaction : +50 000 FCFA</li>
-      <li><a href="index.html">Déconnexion</a></li>
-    </ul>
-  </main>
-
-  <!-- Pied de page -->
-  <footer>
-    <p>&copy; 2025 Banque App</p>
-  </footer>
-
+    <div class="btn-logout">
+      <a href="login.html">Se déconnecter</a>
+    </div>
+  </section>
 </body>
 </html>
