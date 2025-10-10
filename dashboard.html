@@ -13,23 +13,27 @@
   </header>
 
   <div class="container">
-    <h2>Bienvenue sur votre tableau de bord</h2>
-    <p id="userEmail">Chargement des informations...</p>
+    <h2 id="welcomeMessage">Bienvenue sur ton espace sécurisé</h2>
 
-    <div class="actions">
-      <button id="logoutBtn">Se déconnecter</button>
+    <div class="dashboard">
+      <p>✅ Statut du compte : Actif</p>
+      <p>💰 Solde actuel : <strong>250 000 FCFA</strong></p>
+      <p>📅 Dernière connexion : <span id="lastLogin">10 octobre 2025</span></p>
     </div>
+
+    <button id="logoutBtn">Se déconnecter</button>
   </div>
 
   <footer>
     © 2025 Banque App - Tous droits réservés
   </footer>
 
-  <!-- 🔥 Script Firebase -->
+  <!-- 🔥 Firebase -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
+    // Configuration Firebase
     const firebaseConfig = {
       apiKey: "AIzaSyAwGbQuv9EoIvBm7WC0OLTQ41cgleXd804",
       authDomain: "banque-app-66bf9.firebaseapp.com",
@@ -44,13 +48,13 @@
 
     // Vérifie si un utilisateur est connecté
     onAuthStateChanged(auth, (user) => {
-      const userEmail = document.getElementById("userEmail");
+      const welcome = document.getElementById("welcomeMessage");
 
       if (user) {
-        userEmail.textContent = `Connecté en tant que : ${user.email}`;
+        const email = user.email;
+        welcome.textContent = `Bienvenue, ${email} 👋`;
       } else {
-        alert("Vous devez être connecté pour accéder au tableau de bord.");
-        window.location.href = "login.html";
+        window.location.href = "login.html"; // redirige si pas connecté
       }
     });
 
@@ -60,7 +64,7 @@
         alert("Déconnexion réussie !");
         window.location.href = "login.html";
       }).catch((error) => {
-        alert("Erreur lors de la déconnexion : " + error.message);
+        alert("Erreur de déconnexion : " + error.message);
       });
     });
   </script>
