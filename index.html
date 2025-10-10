@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Banque App - Accueil</title>
+  <title>Banque App - Inscription</title>
   <link rel="stylesheet" href="CSS/style.css">
 </head>
 <body>
@@ -13,15 +13,60 @@
   </header>
 
   <div class="container">
-    <h2>Bienvenue sur votre application bancaire</h2>
-    <p>Gérez vos comptes, vos transactions et vos informations en toute sécurité.</p>
-    
-    <a href="login.html">Connexion</a>
-    <a href="tableau de bord.html">Tableau de bord</a>
+    <h2>Créer un compte</h2>
+
+    <form id="signupForm">
+      <label for="email">Adresse e-mail :</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="password">Mot de passe :</label>
+      <input type="password" id="password" name="password" required minlength="6">
+
+      <button type="submit">S’inscrire</button>
+    </form>
+
+    <p>Déjà inscrit ? <a href="login.html">Se connecter</a></p>
   </div>
 
   <footer>
     © 2025 Banque App - Tous droits réservés
   </footer>
+
+  <!-- 🔥 Script Firebase -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+    // Configuration Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyAwGbQuv9EoIvBm7WC0OLTQ41cgleXd804",
+      authDomain: "banque-app-66bf9.firebaseapp.com",
+      projectId: "banque-app-66bf9",
+      storageBucket: "banque-app-66bf9.firebasestorage.app",
+      messagingSenderId: "833823730245",
+      appId: "1:833823730245:web:64dd77db2f273d24f9912c"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // Gestion du formulaire d’inscription
+    const signupForm = document.getElementById("signupForm");
+
+    signupForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          alert("Compte créé avec succès !");
+          window.location.href = "login.html"; // ✅ redirige vers la page de connexion
+        })
+        .catch((error) => {
+          alert("Erreur : " + error.message);
+        });
+    });
+  </script>
 </body>
 </html>
