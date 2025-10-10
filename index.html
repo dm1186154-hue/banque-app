@@ -3,30 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Banque App - Inscription</title>
+  <title>Banque App - Tableau de bord</title>
   <link rel="stylesheet" href="CSS/style.css">
 </head>
 <body>
   <header>
     <img src="banque_app_logo_final.jpg" alt="Logo Banque App">
     <h1>Banque App</h1>
+    <button id="logoutBtn" class="logout-btn">Déconnexion</button>
   </header>
 
-  <div class="container">
-    <h2>Créer un compte</h2>
+  <main class="dashboard">
+    <h2>Bienvenue sur votre espace client</h2>
+    <p id="userEmail"></p>
 
-    <form id="registerForm">
-      <label for="email">Adresse e-mail :</label>
-      <input type="email" id="email" name="email" required placeholder="exemple@email.com">
+    <section class="account-info">
+      <h3>Solde actuel</h3>
+      <p id="balance">10 000 FCFA</p>
+    </section>
 
-      <label for="password">Mot de passe :</label>
-      <input type="password" id="password" name="password" required placeholder="••••••••">
+    <section class="transactions">
+      <h3>Historique des transactions</h3>
+      <ul id="transactionList">
+        <li>Achat - Supermarché : -3 000 FCFA</li>
+        <li>Dépôt - Salaire : +50 000 FCFA</li>
+        <li>Transfert - Ami : -10 000 FCFA</li>
+      </ul>
+    </section>
 
-      <button type="submit">S'inscrire</button>
-    </form>
-
-    <p>Déjà inscrit ? <a href="login.html">Se connecter</a></p>
-  </div>
+    <section class="actions">
+      <h3>Effectuer une opération</h3>
+      <button id="depositBtn">Déposer de l'argent</button>
+      <button id="withdrawBtn">Retirer de l'argent</button>
+    </section>
+  </main>
 
   <footer>
     © 2025 Banque App - Tous droits réservés
@@ -35,9 +45,8 @@
   <!-- 🔥 Firebase Script -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-    // Configuration Firebase
     const firebaseConfig = {
       apiKey: "AIzaSyAwGbQuv9EoIvBm7WC0OLTQ41cgleXd804",
       authDomain: "banque-app-66bf9.firebaseapp.com",
@@ -47,24 +56,35 @@
       appId: "1:833823730245:web:64dd77db2f273d24f9912c"
     };
 
-    // Initialisation Firebase
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-    // Gestion du formulaire d'inscription
-    document.getElementById("registerForm").addEventListener("submit", (e) => {
-      e.preventDefault();
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
+    // Vérifie si un utilisateur est connecté
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        document.getElementById("userEmail").innerText = "Connecté en tant que : " + user.email;
+      } else {
+        window.location.href = "login.html"; // redirection si non connecté
+      }
+    });
 
-      createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          alert("Compte créé avec succès !");
-          window.location.href = "login.html"; // Redirection vers la connexion
-        })
-        .catch((error) => {
-          alert("Erreur : " + error.message);
-        });
+    // Déconnexion
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      signOut(auth).then(() => {
+        alert("Déconnecté avec succès !");
+        window.location.href = "login.html";
+      }).catch((error) => {
+        alert("Erreur : " + error.message);
+      });
+    });
+
+    // Petites actions pour simuler les transactions
+    document.getElementById("depositBtn").addEventListener("click", () => {
+      alert("Fonction de dépôt à venir !");
+    });
+
+    document.getElementById("withdrawBtn").addEventListener("click", () => {
+      alert("Fonction de retrait à venir !");
     });
   </script>
 </body>
