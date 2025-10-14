@@ -3,70 +3,152 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Banque App - Tableau de bord</title>
-  <link rel="stylesheet" href="CSS/style.css">
+  <title>Tableau de bord - Banque Facile</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      margin: 0;
+      background: #f4f7fa;
+    }
+
+    header {
+      background: #0044cc;
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    header img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+
+    .username {
+      font-weight: 600;
+    }
+
+    .container {
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+
+    .balance {
+      text-align: center;
+      font-size: 28px;
+      color: #0044cc;
+      margin: 10px 0;
+    }
+
+    .btn {
+      background: #0044cc;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #003399;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background: #f0f0f0;
+    }
+
+    footer {
+      text-align: center;
+      color: #777;
+      margin-top: 30px;
+      font-size: 14px;
+    }
+  </style>
 </head>
 <body>
+
   <header>
-    <img src="banque_app_logo_final.jpg" alt="Logo Banque App">
-    <h1>Tableau de bord - Banque App</h1>
+    <div class="logo">
+      <img src="logo.png" alt="Logo Banque Facile">
+      <span class="username">Bonjour, Diakité 👋</span>
+    </div>
+    <a href="login.html" class="btn">Déconnexion</a>
   </header>
 
   <div class="container">
-    <h2 id="welcomeMessage">Bienvenue sur ton espace sécurisé</h2>
-
-    <div class="dashboard">
-      <p>✅ Statut du compte : Actif</p>
-      <p>💰 Solde actuel : <strong>250 000 FCFA</strong></p>
-      <p>📅 Dernière connexion : <span id="lastLogin">10 octobre 2025</span></p>
+    <div class="card">
+      <h2>Solde actuel</h2>
+      <p class="balance">💰 1 250 000 FCFA</p>
+      <button class="btn">Faire un virement</button>
     </div>
 
-    <button id="logoutBtn">Se déconnecter</button>
+    <div class="card">
+      <h3>Historique des transactions</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Montant</th>
+            <th>Statut</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>13 Oct 2025</td>
+            <td>Transfert vers A. Koné</td>
+            <td>- 50 000 FCFA</td>
+            <td style="color:red;">Débité</td>
+          </tr>
+          <tr>
+            <td>10 Oct 2025</td>
+            <td>Dépôt mobile money</td>
+            <td>+ 100 000 FCFA</td>
+            <td style="color:green;">Crédité</td>
+          </tr>
+          <tr>
+            <td>08 Oct 2025</td>
+            <td>Paiement électricité</td>
+            <td>- 25 000 FCFA</td>
+            <td style="color:red;">Débité</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>Notifications</h3>
+      <p>🔔 Votre relevé mensuel est disponible.</p>
+      <p>✅ Nouvelle connexion détectée à 14:32.</p>
+    </div>
   </div>
 
   <footer>
-    © 2025 Banque App - Tous droits réservés
+    © 2025 Banque Facile — Tous droits réservés
   </footer>
 
-  <!-- 🔥 Firebase -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-
-    // Configuration Firebase
-    const firebaseConfig = {
-      apiKey: "AIzaSyAwGbQuv9EoIvBm7WC0OLTQ41cgleXd804",
-      authDomain: "banque-app-66bf9.firebaseapp.com",
-      projectId: "banque-app-66bf9",
-      storageBucket: "banque-app-66bf9.firebasestorage.app",
-      messagingSenderId: "833823730245",
-      appId: "1:833823730245:web:64dd77db2f273d24f9912c"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
-    // Vérifie si un utilisateur est connecté
-    onAuthStateChanged(auth, (user) => {
-      const welcome = document.getElementById("welcomeMessage");
-
-      if (user) {
-        const email = user.email;
-        welcome.textContent = `Bienvenue, ${email} 👋`;
-      } else {
-        window.location.href = "login.html"; // redirige si pas connecté
-      }
-    });
-
-    // Déconnexion
-    document.getElementById("logoutBtn").addEventListener("click", () => {
-      signOut(auth).then(() => {
-        alert("Déconnexion réussie !");
-        window.location.href = "login.html";
-      }).catch((error) => {
-        alert("Erreur de déconnexion : " + error.message);
-      });
-    });
-  </script>
 </body>
 </html>
