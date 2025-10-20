@@ -1,23 +1,22 @@
 # Banque App
 
-![Logo](./banque_app_logo_final.jpg)
+Application bancaire en ligne - projet personnel développée avec HTML, CSS et Firebase (auth & storage).
 
-## 📌 Description détaillée
+## Description détaillée
+Banque App est une application simple et intuitive pour gérer les comptes utilisateurs, consulter les transactions et visualiser un tableau de bord personnalisé.
 
-Banque App est une application bancaire simple et intuitive développée pour la gestion des comptes utilisateurs.  
-Elle permet aux utilisateurs de se connecter, consulter leur solde, et visualiser un tableau de bord personnalisé.  
+## Fonctionnalités principales
+- Page de connexion sécurisée (login.html)
+- Tableau de bord utilisateur (dashboard.html)
+- Interface responsive (CSS/style.css)
+- Logo personnalisé
 
-L’objectif de ce projet est d’illustrer la création d’une application web bancaire avec HTML, CSS et une organisation de fichiers claire.
+## Structure du projet
+- index.html
+- login.html
+- dashboard.html
+- CSS/style.css
+- assets/banque_app_logo_final.jpg
 
----
-
-## ⚙️ Fonctionnalités principales
-- Page de connexion sécurisée (**login.html**)
-- Tableau de bord utilisateur (**dashboard.html**)
-- Mise en page stylisée avec **style.css**
-- Logo personnalisé intégré
-- Structure prête pour être améliorée (ajout de JavaScript, base de données, etc.)
-
----
-
-## 📂 Structure du projet
+## Déploiement
+Héberger via GitHub Pages (branche main, racine).
