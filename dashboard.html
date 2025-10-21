@@ -3,112 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tableau de bord — Banque Facile</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f7f9fc;
-      margin: 0;
-      color: #222;
-    }
-    header {
-      background-color: #001f3f;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
-    header img {
-      width: 100px;
-      border-radius: 10px;
-    }
-    section {
-      max-width: 800px;
-      margin: 30px auto;
-      background: white;
-      padding: 25px;
-      border-radius: 15px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    h2 {
-      color: #001f3f;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 15px;
-    }
-    th, td {
-      border: 1px solid #ccc;
-      padding: 10px;
-      text-align: left;
-    }
-    th {
-      background-color: #001f3f;
-      color: white;
-    }
-    footer {
-      text-align: center;
-      background-color: #001f3f;
-      color: white;
-      padding: 10px;
-      margin-top: 30px;
-      font-size: 14px;
-    }
-  </style>
+  <title>Tableau de bord - Banque Facile</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <img src="https://i.postimg.cc/nMtjYWFk/banque-app-logo-final.jpg" alt="Logo Banque Facile">
+  <header class="dashboard-header">
+    <img src="https://i.postimg.cc/yxKxf5qf/file-000000009b7861f78b615a6a6fe8ae03.png"
+         alt="Logo Banque Facile"
+         width="80"
+         class="logo">
     <h1>Tableau de bord</h1>
+    <a href="index.html" class="logout-btn">Déconnexion</a>
   </header>
 
-  <section>
-    <h2>Mes comptes</h2>
-    <table>
-      <tr>
-        <th>Type de compte</th>
-        <th>Numéro</th>
-        <th>Solde</th>
-      </tr>
-      <tr>
-        <td>Compte courant</td>
-        <td>CI-00124589</td>
-        <td>750 000 FCFA</td>
-      </tr>
-      <tr>
-        <td>Épargne</td>
-        <td>CI-00124590</td>
-        <td>1 200 000 FCFA</td>
-      </tr>
-    </table>
-
-    <h2>Dernières transactions</h2>
-    <table>
-      <tr>
-        <th>Date</th>
-        <th>Description</th>
-        <th>Montant</th>
-      </tr>
-      <tr>
-        <td>20 Oct 2025</td>
-        <td>Dépôt Orange Money</td>
-        <td>+100 000 FCFA</td>
-      </tr>
-      <tr>
-        <td>18 Oct 2025</td>
-        <td>Achat supermarché</td>
-        <td>-45 000 FCFA</td>
-      </tr>
-      <tr>
-        <td>15 Oct 2025</td>
-        <td>Transfert vers ami</td>
-        <td>-20 000 FCFA</td>
-      </tr>
-    </table>
-  </section>
+  <main class="dashboard-content">
+    <h2>Bienvenue, cher client 👋</h2>
+    <p>Solde du compte : <strong>1 250 000 FCFA</strong></p>
+    <p>Dernière connexion : 21 octobre 2025 à 12:40</p>
+  </main>
 
   <footer>
-    © 2025 Banque Facile — Tous droits réservés
+    <p>© 2025 Banque Facile - Espace client sécurisé</p>
   </footer>
 </body>
 </html>
