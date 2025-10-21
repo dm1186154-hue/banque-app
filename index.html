@@ -1,62 +1,96 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Banque Facile — Accueil</title>
-  <link rel="stylesheet" href="CSS/style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banque Facile — Accueil</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f7f9fc;
+            color: #222;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        header {
+            background-color: #001f3f;
+            color: white;
+            padding: 20px 10px;
+        }
+        header img {
+            width: 120px;
+            display: block;
+            margin: 0 auto 10px auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        nav a {
+            color: #00bfff;
+            margin: 0 10px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        section {
+            max-width: 700px;
+            margin: 30px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        footer {
+            background-color: #001f3f;
+            color: white;
+            padding: 15px;
+            margin-top: 30px;
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="brand">
-      <img src="banque_app_logo_final.jpg" alt="Logo Banque Facile" width="120">
+
+    <header>
+        <img src="https://i.postimg.cc/nMtjYWFk/banque-app-logo-final.jpg" alt="Logo Banque Facile">
         <h1>Banque Facile</h1>
-        <p class="slogan">Gérez vos finances simplement</p>
-      </div>
-    </div>
-    <nav class="main-nav">
-      <a href="index.html">Accueil</a>
-      <a href="login.html">Connexion</a>
-      <a href="dashboard.html">Tableau de bord</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
+        <p>Gérez vos finances simplement</p>
+        <nav>
+            <a href="index.html">Accueil</a>
+            <a href="login.html">Connexion</a>
+            <a href="tableau de bord.html">Tableau de bord</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
 
-  <main class="container">
-    <section class="hero">
-      <h2>Bienvenue sur Banque Facile</h2>
-      <p>Gérez comptes, transactions et visualisez votre tableau de bord personnalisé.</p>
-      <p><a class="btn" href="login.html">Se connecter</a></p>
-    </section>
+    <section>
+        <h2>Bienvenue sur Banque Facile</h2>
+        <p>Gérez vos comptes, transactions et visualisez votre tableau de bord personnalisé.</p>
+        <p><a href="login.html">Se connecter</a></p>
 
-    <section class="cards">
-      <article class="card">
         <h3>Clients</h3>
-        <ul>
-          <li>XYZ Corporation</li>
-          <li>DEF Agency</li>
-          <li>PQR Group</li>
+        <ul style="text-align:left;">
+            <li>XYZ Corporation</li>
+            <li>DEF Agency</li>
+            <li>PQR Group</li>
         </ul>
-      </article>
 
-      <article class="card">
         <h3>Tasks du Projet</h3>
-        <ul>
-          <li>1 Septembre 2025 – Kickoff Meeting (In Progress)</li>
-          <li>15 Septembre 2025 – Research & Planning (Not Started)</li>
-          <li>1 Octobre 2025 – Design Development (In Progress)</li>
+        <ul style="text-align:left;">
+            <li>1 Septembre 2025 – Kickoff Meeting (In Progress)</li>
+            <li>15 Septembre 2025 – Research & Planning (Not Started)</li>
+            <li>1 Octobre 2025 – Design Development (In Progress)</li>
         </ul>
-      </article>
 
-      <article class="card">
         <h3>Contact</h3>
-        <p>Diakité Moussa — dm1186154@gmail.com</p>
-      </article>
+        <p>Diakité Moussa — <a href="mailto:dm1186154@gmail.com">dm1186154@gmail.com</a></p>
     </section>
-  </main>
 
-  <footer class="site-footer" id="contact">
-    <p>© 2025 Banque Facile — Tous droits réservés</p>
-  </footer>
+    <footer>
+        © 2025 Banque Facile — Tous droits réservés
+    </footer>
+
 </body>
   </html>
