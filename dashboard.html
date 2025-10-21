@@ -1,40 +1,114 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Banque Facile — Dashboard</title>
-  <link rel="stylesheet" href="CSS/style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tableau de bord — Banque Facile</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f7f9fc;
+      margin: 0;
+      color: #222;
+    }
+    header {
+      background-color: #001f3f;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    header img {
+      width: 100px;
+      border-radius: 10px;
+    }
+    section {
+      max-width: 800px;
+      margin: 30px auto;
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #001f3f;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #001f3f;
+      color: white;
+    }
+    footer {
+      text-align: center;
+      background-color: #001f3f;
+      color: white;
+      padding: 10px;
+      margin-top: 30px;
+      font-size: 14px;
+    }
+  </style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="brand">
-      <img src="banque_app_logo_final.jpg" alt="Logo" class="logo">
-      <div>
-        <h1>Banque Facile</h1>
-        <p class="slogan">Votre tableau de bord</p>
-      </div>
-    </div>
-    <nav class="main-nav">
-      <a href="index.html">Accueil</a>
-      <a href="login.html">Déconnexion</a>
-    </nav>
+  <header>
+    <img src="https://i.postimg.cc/nMtjYWFk/banque-app-logo-final.jpg" alt="Logo Banque Facile">
+    <h1>Tableau de bord</h1>
   </header>
 
-  <main class="container">
-    <section class="dashboard">
-      <h2>Solde actuel</h2>
-      <p class="big">1 250 000 FCFA</p>
+  <section>
+    <h2>Mes comptes</h2>
+    <table>
+      <tr>
+        <th>Type de compte</th>
+        <th>Numéro</th>
+        <th>Solde</th>
+      </tr>
+      <tr>
+        <td>Compte courant</td>
+        <td>CI-00124589</td>
+        <td>750 000 FCFA</td>
+      </tr>
+      <tr>
+        <td>Épargne</td>
+        <td>CI-00124590</td>
+        <td>1 200 000 FCFA</td>
+      </tr>
+    </table>
 
-      <h3>Dernière transaction</h3>
-      <p>+50 000 FCFA</p>
+    <h2>Dernières transactions</h2>
+    <table>
+      <tr>
+        <th>Date</th>
+        <th>Description</th>
+        <th>Montant</th>
+      </tr>
+      <tr>
+        <td>20 Oct 2025</td>
+        <td>Dépôt Orange Money</td>
+        <td>+100 000 FCFA</td>
+      </tr>
+      <tr>
+        <td>18 Oct 2025</td>
+        <td>Achat supermarché</td>
+        <td>-45 000 FCFA</td>
+      </tr>
+      <tr>
+        <td>15 Oct 2025</td>
+        <td>Transfert vers ami</td>
+        <td>-20 000 FCFA</td>
+      </tr>
+    </table>
+  </section>
 
-      <a class="btn" href="index.html">Retour</a>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <p>© 2025 Banque Facile</p>
+  <footer>
+    © 2025 Banque Facile — Tous droits réservés
   </footer>
 </body>
-</html> 
+</html>
