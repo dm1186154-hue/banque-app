@@ -3,75 +3,118 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Connexion — Banque Facile</title>
+  <title>Banque Facile - Connexion</title>
+  <link rel="stylesheet" href="CSS/style.css">
   <style>
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f0f4f8;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom right, #1e88e5, #42a5f5);
+      color: #fff;
+      text-align: center;
       margin: 0;
       padding: 0;
+    }
+
+    header {
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
+      padding: 15px;
+      background-color: rgba(0,0,0,0.2);
     }
+
+    header img {
+      width: 70px;
+      margin-right: 10px;
+      border-radius: 50%;
+    }
+
     .container {
-      background: white;
+      background-color: rgba(255, 255, 255, 0.15);
       padding: 30px;
+      margin: 80px auto;
+      width: 90%;
+      max-width: 400px;
       border-radius: 15px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      width: 320px;
-      text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
     }
-    img {
-      width: 100px;
-      margin-bottom: 15px;
-      border-radius: 12px;
-    }
+
     input {
-      width: 100%;
+      width: 90%;
       padding: 10px;
-      margin: 8px 0;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 15px;
-    }
-    button {
-      background-color: #001f3f;
-      color: white;
-      padding: 10px;
-      width: 100%;
+      margin: 10px 0;
       border: none;
-      border-radius: 8px;
+      border-radius: 5px;
+    }
+
+    button {
+      background-color: #0d47a1;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
       cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #1565c0;
+    }
+
+    .error {
+      color: #ffcccb;
       font-weight: bold;
     }
-    button:hover {
-      background-color: #003366;
-    }
-    a {
-      display: block;
-      margin-top: 15px;
-      text-decoration: none;
-      color: #007bff;
+
+    footer {
+      margin-top: 40px;
       font-size: 14px;
-    }
-    a:hover {
-      text-decoration: underline;
     }
   </style>
 </head>
 <body>
-  <div class="container">
+  <header>
     <img src="https://i.postimg.cc/nMtjYWFk/banque-app-logo-final.jpg" alt="Logo Banque Facile">
-    <h2>Connexion</h2>
-    <form action="tableau_de_bord.html" method="get">
-      <input type="text" placeholder="Nom d'utilisateur" required>
-      <input type="password" placeholder="Mot de passe" required>
+    <h1>Banque Facile</h1>
+  </header>
+
+  <div class="container">
+    <h2>Connexion sécurisée</h2>
+    <form id="loginForm">
+      <input type="text" id="username" placeholder="Nom d'utilisateur" required>
+      <input type="password" id="password" placeholder="Mot de passe" required>
       <button type="submit">Se connecter</button>
+      <p id="errorMsg" class="error"></p>
     </form>
-    <a href="index.html">← Retour à l’accueil</a>
+    <p>Pas encore inscrit ? <a href="index.html" style="color: #fff; text-decoration: underline;">Retour à l'accueil</a></p>
   </div>
+
+  <footer>
+    © 2025 Banque Facile - Tous droits réservés
+  </footer>
+
+  <script>
+    const loginForm = document.getElementById('loginForm');
+    const errorMsg = document.getElementById('errorMsg');
+
+    // Identifiants de test
+    const utilisateur = {
+      nom: "admin",
+      motdepasse: "12345"
+    };
+
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      if (username === utilisateur.nom && password === utilisateur.motdepasse) {
+        // Redirection vers le tableau de bord
+        window.location.href = "dashboard.html";
+      } else {
+        errorMsg.textContent = "Nom d'utilisateur ou mot de passe incorrect ❌";
+      }
+    });
+  </script>
 </body>
 </html>
