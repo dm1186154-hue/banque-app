@@ -1,27 +1,36 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tableau de bord - Banque App</title>
-  <link rel="stylesheet" href="CSS/style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tableau de bord - Banque Facile</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <img src="https://postimg.cc/nMtjYWFk" alt="Logo Banque Facile" width="100" />
-    <h1>Tableau de bord</h1>
+  <header class="header">
+    <img src="https://i.postimg.cc/yxKxf5qf/file-000000009b7861f78b615a6a6fe8ae03.png" class="logo" alt="Logo Banque Facile">
+    <h1>Mon Tableau de Bord</h1>
   </header>
 
-  <div class="container">
-    <h2 id="welcome-message">Bienvenue sur votre espace</h2>
-    <p>Solde actuel : <strong id="solde">150 000 FCFA</strong></p>
-    <button id="logout-btn">Déconnexion</button>
-  </div>
+  <main class="dashboard">
+    <div class="card">
+      <h3>Solde actuel</h3>
+      <p>250 000 FCFA</p>
+    </div>
+    <div class="card">
+      <h3>Dernières transactions</h3>
+      <ul>
+        <li>Achat - Supermarché : -15 000 FCFA</li>
+        <li>Virement reçu : +50 000 FCFA</li>
+        <li>Retrait DAB : -20 000 FCFA</li>
+      </ul>
+    </div>
+  </main>
 
-  <footer>
-    © 2025 Banque App - Tous droits réservés
+  <footer class="footer">
+    <a href="index.html" class="btn btn-secondary">Déconnexion</a>
   </footer>
 
-  <script type="module" src="main.js"></script>
+  <script type="module" src="firebase.js"></script>
 </body>
 </html>
