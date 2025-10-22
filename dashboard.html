@@ -1,29 +1,27 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tableau de bord - Banque Facile</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tableau de bord - Banque App</title>
+  <link rel="stylesheet" href="CSS/style.css" />
 </head>
 <body>
-  <header class="dashboard-header">
-    <img src="https://i.postimg.cc/yxKxf5qf/file-000000009b7861f78b615a6a6fe8ae03.png"
-         alt="Logo Banque Facile"
-         width="80"
-         class="logo">
+  <header>
+    <img src="https://postimg.cc/nMtjYWFk" alt="Logo Banque Facile" width="100" />
     <h1>Tableau de bord</h1>
-    <a href="index.html" class="logout-btn">Déconnexion</a>
   </header>
 
-  <main class="dashboard-content">
-    <h2>Bienvenue, cher client 👋</h2>
-    <p>Solde du compte : <strong>1 250 000 FCFA</strong></p>
-    <p>Dernière connexion : 21 octobre 2025 à 12:40</p>
-  </main>
+  <div class="container">
+    <h2 id="welcome-message">Bienvenue sur votre espace</h2>
+    <p>Solde actuel : <strong id="solde">150 000 FCFA</strong></p>
+    <button id="logout-btn">Déconnexion</button>
+  </div>
 
   <footer>
-    <p>© 2025 Banque Facile - Espace client sécurisé</p>
+    © 2025 Banque App - Tous droits réservés
   </footer>
+
+  <script type="module" src="main.js"></script>
 </body>
 </html>
