@@ -1,0 +1,56 @@
+// Importation Firebase
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+// Configuration Firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyAwGbQuv9EoIvBm7WC0OLTQ41cgleXd804",
+  authDomain: "banque-app-66bf9.firebaseapp.com",
+  projectId: "banque-app-66bf9",
+  storageBucket: "banque-app-66bf9.appspot.com",
+  messagingSenderId: "833823730245",
+  appId: "1:833823730245:web:64dd77db2f273d24f9912c"
+};
+
+// Initialisation
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+// Si on est sur la page de login
+const loginForm = document.getElementById("login-form");
+if (loginForm) {
+  loginForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const email = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then(() => {
+        alert("Connexion réussie !");
+        window.location.href = "dashboard.html";
+      })
+      .catch((error) => {
+        alert("Erreur : " + error.message);
+      });
+  });
+}
+
+// Si on est sur le dashboard
+const logoutBtn = document.getElementById("logout-btn");
+if (logoutBtn) {
+  logoutBtn.addEventListener("click", () => {
+    signOut(auth).then(() => {
+      window.location.href = "login.html";
+    });
+  });
+}
+
+// Afficher le nom de l'utilisateur connecté
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    const welcomeMessage = document.getElementById("welcome-message");
+    if (welcomeMessage) {
+      welcomeMessage.textContent = "Bienvenue, " + user.email;
+    }
+  }
+});
