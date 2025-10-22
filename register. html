@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inscription - Banque Facile</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="auth-container">
+    <img src="https://i.postimg.cc/yxKxf5qf/file-000000009b7861f78b615a6a6fe8ae03.png" class="logo" alt="Logo Banque Facile">
+    <h2>Créer un compte</h2>
+
+    <form id="registerForm">
+      <input type="text" id="name" placeholder="Nom complet" required>
+      <input type="email" id="email" placeholder="Adresse email" required>
+      <input type="password" id="password" placeholder="Mot de passe" required>
+      <input type="password" id="confirmPassword" placeholder="Confirmer le mot de passe" required>
+      <button type="submit" class="btn">S'inscrire</button>
+    </form>
+
+    <p>Déjà inscrit ? <a href="login.html">Se connecter</a></p>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAwGbQuv9EoIvBm7WC0OLTQ41cgleXd804",
+      authDomain: "banque-app-66bf9.firebaseapp.com",
+      projectId: "banque-app-66bf9",
+      storageBucket: "banque-app-66bf9.firebasestorage.app",
+      messagingSenderId: "833823730245",
+      appId: "1:833823730245:web:64dd77db2f273d24f9912c"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const form = document.getElementById("registerForm");
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const confirmPassword = document.getElementById("confirmPassword").value.trim();
+
+      if (password !== confirmPassword) {
+        alert("❌ Les mots de passe ne correspondent pas !");
+        return;
+      }
+
+      try {
+        await createUserWithEmailAndPassword(auth, email, password);
+        alert("✅ Compte créé avec succès !");
+        window.location.href = "dashboard.html";
+      } catch (error) {
+        alert("⚠️ Erreur : " + error.message);
+      }
+    });
+  </script>
+</body>
+</html>
