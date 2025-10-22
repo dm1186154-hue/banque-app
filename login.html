@@ -1,36 +1,23 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Banque App - Connexion</title>
-  <link rel="stylesheet" href="CSS/style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connexion - Banque Facile</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <img src="https://postimg.cc/nMtjYWFk" alt="Logo Banque Facile" width="120" />
-    <h1>Banque App</h1>
-  </header>
-
-  <div class="container">
-    <h2>Connexion sécurisée</h2>
-    <form id="login-form">
-      <label for="username">Email :</label>
-      <input type="email" id="username" name="username" required />
-
-      <label for="password">Mot de passe :</label>
-      <input type="password" id="password" name="password" required />
-
-      <button type="submit">Se connecter</button>
+  <div class="auth-container">
+    <img src="https://i.postimg.cc/yxKxf5qf/file-000000009b7861f78b615a6a6fe8ae03.png" class="logo" alt="Logo Banque Facile">
+    <h2>Connexion</h2>
+    <form id="loginForm">
+      <input type="email" id="email" placeholder="Email" required>
+      <input type="password" id="password" placeholder="Mot de passe" required>
+      <button type="submit" class="btn">Se connecter</button>
     </form>
-
-    <p>Pas encore inscrit ? <a href="index.html">Retour à l'accueil</a></p>
+    <p>Pas encore de compte ? <a href="register.html">S'inscrire</a></p>
   </div>
 
-  <footer>
-    © 2025 Banque App - Tous droits réservés
-  </footer>
-
-  <script type="module" src="main.js"></script>
+  <script type="module" src="firebase.js"></script>
 </body>
-  </html>
+</html>
