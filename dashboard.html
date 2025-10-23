@@ -1,36 +1,169 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tableau de bord - Banque Facile</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Banque Facile — Tableau de bord</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- CinetPay client-side checkout -->
+  <script src="https://checkout.cinetpay.com/seamless/main.js"></script>
 </head>
 <body>
   <header class="header">
-    <img src="https://i.postimg.cc/yxKxf5qf/file-000000009b7861f78b615a6a6fe8ae03.png" class="logo" alt="Logo Banque Facile">
-    <h1>Mon Tableau de Bord</h1>
+    <img src="https://i.postimg.cc/yxKxf5qf/file-000000009b7861f78b615a6a6fe8ae03.png" alt="Logo" class="logo">
+    <h1>Tableau de bord — Banque Facile</h1>
   </header>
 
   <main class="dashboard">
     <div class="card">
-      <h3>Solde actuel</h3>
-      <p>250 000 FCFA</p>
+      <h2>Solde actuel</h2>
+      <p id="solde">15 000 XOF</p>
     </div>
+
     <div class="card">
-      <h3>Dernières transactions</h3>
-      <ul>
-        <li>Achat - Supermarché : -15 000 FCFA</li>
-        <li>Virement reçu : +50 000 FCFA</li>
-        <li>Retrait DAB : -20 000 FCFA</li>
-      </ul>
+      <h3>Actions</h3>
+      <label for="amount">Montant (XOF)</label>
+      <input type="number" id="amount" value="2000" min="100" style="padding:8px;width:200px;">
+      <div style="margin-top:12px;">
+        <button class="btn" onclick="startPayment()">Faire un dépôt</button>
+      </div>
+      <div id="result" style="margin-top:12px;color:#0a0;"></div>
+    </div>
+
+    <div class="card">
+      <h3>Historique (derniers paiements)</h3>
+      <ul id="history"></ul>
     </div>
   </main>
 
   <footer class="footer">
-    <a href="index.html" class="btn btn-secondary">Déconnexion</a>
+    © 2025 Banque Facile
   </footer>
 
-  <script type="module" src="firebase.js"></script>
+  <!-- App logic: initialise Firebase, CinetPay checkout, store transactions in Firestore -->
+  <script type="module">
+  // ---------- CONFIGURE ICI ----------
+  const SITE_ID = "VOTRE_SITE_ID";            // → remplace par ton site_id CinetPay
+  const API_KEY = "VOTRE_API_KEY";            // → remplace par ta clé publique API fournie
+  const NOTIFY_URL = "https://example.com/notify"; // → remplace par ton URL de notification (server-side)
+  // ------------------------------------
+
+  // Firebase imports (CDN modules)
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+  import { getFirestore, collection, addDoc, query, orderBy, limit, onSnapshot, getDocs } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
+
+  // === Remplace par ta configuration Firebase (celle du projet) ===
+  const firebaseConfig = {
+    apiKey: "AIzaSyAwGbQuv9EoIvBm7WC0OLTQ41cgleXd804",
+    authDomain: "banque-app-66bf9.firebaseapp.com",
+    projectId: "banque-app-66bf9",
+    storageBucket: "banque-app-66bf9.firebasestorage.app",
+    messagingSenderId: "833823730245",
+    appId: "1:833823730245:web:64dd77db2f273d24f9912c"
+  };
+  // =================================================================
+
+  // initialise Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const auth = getAuth(app);
+
+  // helper to show messages
+  const resultEl = document.getElementById("result");
+  function showResult(msg, color="#060") { resultEl.style.color = color; resultEl.textContent = msg; }
+
+  // currentUserEmail for logging — if you use Firebase Auth, onAuthStateChanged will give real user
+  let currentUserEmail = "utilisateur@test.com"; // fallback if not logged in
+  onAuthStateChanged(auth, (user) => {
+    if (user) currentUserEmail = user.email;
+  });
+
+  // show last transactions in realtime (live update)
+  const historyEl = document.getElementById("history");
+  async function listenHistory(){
+    try {
+      // simple query: last 10 transactions
+      const q = query(collection(db, "transactions"), orderBy("createdAt", "desc"), limit(10));
+      onSnapshot(q, (snapshot) => {
+        historyEl.innerHTML = "";
+        snapshot.forEach(doc => {
+          const d = doc.data();
+          const li = document.createElement("li");
+          li.textContent = `${new Date(d.createdAt.seconds ? d.createdAt.seconds*1000 : d.createdAt).toLocaleString()} — ${d.status} — ${d.amount} XOF — ${d.email || "anonyme"}`;
+          historyEl.appendChild(li);
+        });
+      });
+    } catch (err) {
+      console.error("history listen error", err);
+    }
+  }
+  listenHistory();
+
+  // Function to start a CinetPay payment
+  async function startPayment(){
+    const montant = Number(document.getElementById("amount").value);
+    if (!montant || montant < 100) { showResult("Montant invalide", "#a00"); return; }
+
+    showResult("Ouverture du paiement...", "#006");
+
+    // configure CinetPay (client-side)
+    CinetPay.setConfig({
+      apikey: API_KEY,
+      site_id: SITE_ID,
+      notify_url: NOTIFY_URL
+    });
+
+    const transaction_id = "TX_" + Date.now(); // unique id pour ta transaction côté client
+
+    // launch checkout — channels ALL = Mobile Money + Card
+    CinetPay.getCheckout({
+      transaction_id: transaction_id,
+      amount: montant,
+      currency: "XOF",
+      channels: "ALL",
+      description: "Dépôt Banque Facile - " + currentUserEmail
+    });
+
+    // wait for response from CinetPay checkout
+    CinetPay.waitResponse(async function(response) {
+      // response contient des informations sur la transaction
+      console.log("CinetPay response", response);
+      if (!response) {
+        showResult("Aucune réponse reçue.", "#a00");
+        return;
+      }
+
+      // status usuel : 'ACCEPTED' when success
+      const status = response.data && response.data.status ? response.data.status : response.status || "UNKNOWN";
+
+      // stocker la transaction dans Firestore
+      try {
+        await addDoc(collection(db, "transactions"), {
+          transaction_id: transaction_id,
+          cinetpay_transaction_id: response.data && response.data.payment_token ? response.data.payment_token : (response.transaction_id || null),
+          amount: montant,
+          currency: "XOF",
+          status: status,
+          email: currentUserEmail,
+          createdAt: new Date()
+        });
+      } catch (err) {
+        console.error("Erreur ajout transaction", err);
+      }
+
+      if (status === "ACCEPTED" || status === "ACCEPTED_AND_VALIDATED") {
+        showResult("✅ Paiement accepté !");
+        // ici tu peux aussi mettre à jour le solde localement ou recharger depuis Firestore
+        // par ex: augmenter le solde affiché
+      } else {
+        showResult("❌ Paiement non accepté: " + status, "#a00");
+      }
+    });
+  }
+
+  // exporter la fonction pour être disponible globalement (si nécessaire)
+  window.startPayment = startPayment;
+  </script>
 </body>
-</html>
+  </html>
