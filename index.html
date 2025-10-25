@@ -7,22 +7,23 @@
   <style>
     body {
       margin: 0;
-      height: 100vh;
+      font-family: "Poppins", sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
+      height: 100vh;
       background: linear-gradient(135deg, #4aa3ff, #a8d8ff);
-      font-family: "Poppins", sans-serif;
     }
 
     .container {
       text-align: center;
       background: white;
-      padding: 50px;
-      border-radius: 15px;
-      box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
-      width: 400px;
-      animation: fadeIn 1s ease-in-out;
+      padding: 50px 40px;
+      border-radius: 20px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+      width: 90%;
+      max-width: 400px;
+      animation: fadeIn 0.8s ease-in-out;
     }
 
     @keyframes fadeIn {
@@ -30,59 +31,61 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    img.logo {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin-bottom: 15px;
+      box-shadow: 0 0 10px rgba(0, 119, 255, 0.3);
+    }
+
     h1 {
       color: #0077ff;
-      margin-bottom: 15px;
+      margin: 10px 0;
+      font-size: 1.8rem;
     }
 
     p {
-      color: #333;
-      font-size: 15px;
-      margin-bottom: 25px;
+      color: #444;
+      margin-bottom: 30px;
+      font-size: 0.95rem;
     }
 
-    .btn {
-      display: inline-block;
-      background-color: #0077ff;
+    button {
+      background: #0077ff;
       color: white;
+      border: none;
+      border-radius: 10px;
       padding: 12px 25px;
-      border-radius: 8px;
-      text-decoration: none;
       font-size: 16px;
+      cursor: pointer;
       transition: 0.3s;
     }
 
-    .btn:hover {
-      background-color: #005fd4;
+    button:hover {
+      background: #005fd4;
       transform: scale(1.05);
     }
 
-    footer {
-      margin-top: 25px;
-      font-size: 13px;
-      color: #555;
-    }
-
-    footer a {
+    a {
       color: #0077ff;
       text-decoration: none;
     }
 
-    footer a:hover {
+    a:hover {
       text-decoration: underline;
     }
   </style>
 </head>
 <body>
-
   <div class="container">
-    <h1>Bienvenue sur <br> Transfert Sécurisé 💸</h1>
-    <p>Gérez facilement vos transferts d’argent avec Mobile Money et Wave, en toute sécurité.</p>
-    <a href="login.html" class="btn">Se connecter</a>
-    <footer>
-      <p>Pas encore de compte ? <a href="#">Créer un compte</a></p>
-    </footer>
-  </div>
+    <!-- 🔵 Ton logo ici -->
+    <img src="logo.png" alt="Logo Transfert Sécurisé" class="logo">
 
+    <h1>Bienvenue sur<br>Transfert Sécurisé 💸</h1>
+    <p>Gérez facilement vos transferts d’argent avec Mobile Money et Wave, en toute sécurité.</p>
+    <button onclick="window.location.href='login.html'">Se connecter</button>
+    <p>Pas encore de compte ? <a href="signup.html">Créer un compte</a></p>
+  </div>
 </body>
 </html>
