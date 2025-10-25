@@ -7,17 +7,56 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="auth-container">
-    <img src="https://i.postimg.cc/yxKxf5qf/file-000000009b7861f78b615a6a6fe8ae03.png" class="logo" alt="Logo Banque Facile">
-    <h2>Connexion</h2>
-    <form id="loginForm">
-      <input type="email" id="email" placeholder="Email" required>
-      <input type="password" id="password" placeholder="Mot de passe" required>
-      <button type="submit" class="btn">Se connecter</button>
-    </form>
-    <p>Pas encore de compte ? <a href="register.html">S'inscrire</a></p>
-  </div>
+  <header class="header">
+    <img src="https://i.postimg.cc/nMtjYWFk/banque-app-logo-final.jpg" alt="Logo Banque Facile" class="logo">
+    <h1>Connexion à votre compte</h1>
+  </header>
 
-  <script type="module" src="firebase.js"></script>
+  <main class="main">
+    <div class="card">
+      <h2>Authentification</h2>
+      <p>Entrez vos informations pour accéder à votre compte</p>
+      
+      <input type="email" id="email" placeholder="Adresse e-mail" required>
+      <input type="password" id="password" placeholder="Mot de passe" required>
+
+      <button id="loginBtn" class="btn">Se connecter</button>
+      <p style="margin-top:10px;">Pas encore de compte ? <a href="index.html" style="color:#22c55e;">Retour à l’accueil</a></p>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>© 2025 Banque Facile — Accès sécurisé</p>
+  </footer>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAwGbQuv9EoIvBm7WC0OLTQ41cgleXd804",
+      authDomain: "banque-app-66bf9.firebaseapp.com",
+      projectId: "banque-app-66bf9",
+      storageBucket: "banque-app-66bf9.firebasestorage.app",
+      messagingSenderId: "833823730245",
+      appId: "1:833823730245:web:64dd77db2f273d24f9912c"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    document.getElementById("loginBtn").addEventListener("click", async () => {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        alert("✅ Connexion réussie !");
+        window.location.href = "dashboard.html";
+      } catch (error) {
+        alert("❌ Erreur de connexion : " + error.message);
+      }
+    });
+  </script>
 </body>
 </html>
