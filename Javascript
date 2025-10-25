@@ -1,0 +1,10 @@
+// Identifiants de test CinetPay
+const site_id = "586757"; // Exemple d'ID test
+const api_key = "14966574565d5e7c58f68ecbfe5dc0c3c2ad54c5"; // Clé API test
+
+// Montant et infos de test
+const transaction_id = Math.floor(Math.random() * 1000000000); // ID aléatoire
+const amount = 100; // Montant à tester (100 FCFA)
+const currency = "XOF"; // Devise
+const description = "Test de transfert vers mon ami";
+const notify_url = "https://mondomaine.com/notify"; // Tu peux laisser vide pour test
