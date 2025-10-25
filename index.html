@@ -6,41 +6,95 @@
   <title>Transfert Sécurisé</title>
   <style>
     body {
-      background-color: #cce6ff; /* bleu clair */
-      font-family: Arial, sans-serif;
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(180deg, #66b3ff, #cce6ff);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: white;
+      padding: 30px 25px;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       text-align: center;
-      padding: 50px;
+      width: 90%;
+      max-width: 400px;
+      animation: fadeIn 1s ease-in-out;
     }
-    .logo {
-      width: 150px;
+
+    img.logo {
+      width: 130px;
+      height: auto;
       margin-bottom: 20px;
+      border-radius: 20px;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+      animation: zoomIn 1s ease;
     }
+
     h1 {
-      color: #004aad;
+      color: #007bff;
+      font-size: 22px;
+      margin-bottom: 10px;
     }
-    a {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 10px 20px;
-      background-color: #004aad;
+
+    p {
+      color: #333;
+      font-size: 15px;
+      margin-bottom: 25px;
+    }
+
+    button {
+      background-color: #007bff;
       color: white;
+      border: none;
+      padding: 12px 20px;
       border-radius: 10px;
-      text-decoration: none;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
     }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    a {
+      color: #007bff;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
     a:hover {
-      background-color: #003080;
+      text-decoration: underline;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes zoomIn {
+      from { transform: scale(0.7); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
     }
   </style>
 </head>
 <body>
-  <img src="https://i.postimg.cc/yxKxf5qf/file-000000009b7861f78b615a6a6fe8ae03.png" 
-       alt="Logo Transfert Sécurisé" 
-       class="logo">
 
-  <h1>Bienvenue sur Transfert Sécurisé 💸</h1>
-  <p>Envoyez et recevez de l'argent facilement et en toute confiance.</p>
+  <!-- ✅ Logo centré en haut -->
+  <img class="logo" src="https://i.postimg.cc/yxKxf5qf/file-000000009b7861f78b615a6a6fe8ae03.png" alt="Logo Transfert Sécurisé">
 
-  <a href="login.html">Se connecter</a>
-  <a href="signup.html">S'inscrire</a>
+  <div class="container">
+    <h1>Bienvenue sur <br>Transfert Sécurisé 💸</h1>
+    <p>Gérez facilement vos transferts d’argent avec <br>Mobile Money et Wave, en toute sécurité.</p>
+    <button onclick="window.location.href='login.html'">Se connecter</button>
+    <p>Pas encore de compte ? <a href="register.html">Créer un compte</a></p>
+  </div>
+
 </body>
 </html>
