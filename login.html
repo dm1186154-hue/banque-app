@@ -3,60 +3,108 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Connexion - Banque Facile</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Connexion sécurisée</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #4aa3ff, #0077ff);
+      font-family: "Poppins", sans-serif;
+    }
+
+    .login-container {
+      background-color: #ffffff;
+      padding: 40px 50px;
+      border-radius: 15px;
+      box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+      width: 350px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #0077ff;
+      margin-bottom: 25px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+      font-size: 15px;
+    }
+
+    input:focus {
+      border-color: #0077ff;
+      box-shadow: 0 0 5px #0077ff;
+    }
+
+    button {
+      width: 100%;
+      background-color: #0077ff;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #005fd4;
+    }
+
+    .error {
+      color: #ff4d4d;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    a {
+      color: #0077ff;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
-  <header class="header">
-    <img src="https://i.postimg.cc/nMtjYWFk/banque-app-logo-final.jpg" alt="Logo Banque Facile" class="logo">
-    <h1>Connexion à votre compte</h1>
-  </header>
 
-  <main class="main">
-    <div class="card">
-      <h2>Authentification</h2>
-      <p>Entrez vos informations pour accéder à votre compte</p>
-      
-      <input type="email" id="email" placeholder="Adresse e-mail" required>
+  <div class="login-container">
+    <h2>Connexion sécurisée</h2>
+    <form onsubmit="return verifierConnexion(event)">
+      <input type="text" id="username" placeholder="Nom d'utilisateur" required>
       <input type="password" id="password" placeholder="Mot de passe" required>
+      <button type="submit">Se connecter</button>
+      <p id="erreur" class="error"></p>
+    </form>
+    <p>Pas encore inscrit ? <a href="index.html">Retour à l'accueil</a></p>
+  </div>
 
-      <button id="loginBtn" class="btn">Se connecter</button>
-      <p style="margin-top:10px;">Pas encore de compte ? <a href="index.html" style="color:#22c55e;">Retour à l’accueil</a></p>
-    </div>
-  </main>
+  <script>
+    function verifierConnexion(e) {
+      e.preventDefault();
+      const user = document.getElementById("username").value.trim();
+      const pass = document.getElementById("password").value.trim();
+      const erreur = document.getElementById("erreur");
 
-  <footer class="footer">
-    <p>© 2025 Banque Facile — Accès sécurisé</p>
-  </footer>
-
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyAwGbQuv9EoIvBm7WC0OLTQ41cgleXd804",
-      authDomain: "banque-app-66bf9.firebaseapp.com",
-      projectId: "banque-app-66bf9",
-      storageBucket: "banque-app-66bf9.firebasestorage.app",
-      messagingSenderId: "833823730245",
-      appId: "1:833823730245:web:64dd77db2f273d24f9912c"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
-    document.getElementById("loginBtn").addEventListener("click", async () => {
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
-
-      try {
-        await signInWithEmailAndPassword(auth, email, password);
-        alert("✅ Connexion réussie !");
+      // Exemple de connexion test
+      if (user === "diakitemoussa" && pass === "12345") {
         window.location.href = "dashboard.html";
-      } catch (error) {
-        alert("❌ Erreur de connexion : " + error.message);
+      } else {
+        erreur.textContent = "Nom d'utilisateur ou mot de passe incorrect ❌";
       }
-    });
+    }
   </script>
+
 </body>
 </html>
