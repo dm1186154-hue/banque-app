@@ -1,10 +1,44 @@
-// Identifiants de test CinetPay
-const site_id = "586757"; // Exemple d'ID test
-const api_key = "14966574565d5e7c58f68ecbfe5dc0c3c2ad54c5"; // Clé API test
+// === Configuration Firebase ===
+// (⚠️ Remplace les valeurs ci-dessous par celles de ton propre projet Firebase)
+const firebaseConfig = {
+  apiKey: "TA_CLE_API_ICI",
+  authDomain: "TON_PROJET.firebaseapp.com",
+  projectId: "TON_PROJET",
+  storageBucket: "TON_PROJET.appspot.com",
+  messagingSenderId: "TON_ID_MESSAGERIE",
+  appId: "TON_APP_ID"
+};
 
-// Montant et infos de test
-const transaction_id = Math.floor(Math.random() * 1000000000); // ID aléatoire
-const amount = 100; // Montant à tester (100 FCFA)
-const currency = "XOF"; // Devise
-const description = "Test de transfert vers mon ami";
-const notify_url = "https://mondomaine.com/notify"; // Tu peux laisser vide pour test
+// Initialisation de Firebase
+firebase.initializeApp(firebaseConfig);
+
+// === Gestion de l'inscription ===
+const signupForm = document.querySelector("form");
+
+signupForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+  const confirm = document.getElementById("confirm").value;
+
+  if (password !== confirm) {
+    alert("❌ Les mots de passe ne correspondent pas !");
+    return;
+  }
+
+  try {
+    // Création de l'utilisateur avec Firebase
+    const userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password);
+    const user = userCredential.user;
+
+    // Enregistrement du nom dans le profil utilisateur
+    await user.updateProfile({ displayName: name });
+
+    alert("✅ Inscription réussie !");
+    window.location.href = "dashboard.html"; // Redirection vers le tableau de bord
+  } catch (error) {
+    alert("⚠️ Erreur : " + error.message);
+  }
+});
