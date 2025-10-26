@@ -1,7 +1,38 @@
-hash_config {
-  algorithm: SCRYPT,
-  base64_signer_key: 7Go9e5fHWIlfdrg65Gz5gmtWtd8rpqec2QuUfUNA8xQoLdsqDYSKziMQFoxmUI9+1Xj9om+0QVNtnwDSxGGYmg==,
-  base64_salt_separator: Bw==,
-  rounds: 8,
-  mem_cost: 14,
-}
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } 
+  from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAwGbQuv9EoIvBm7WC0OLTQ41cgleXd804",
+    authDomain: "banque-app-66bf9.firebaseapp.com",
+    projectId: "banque-app-66bf9",
+    storageBucket: "banque-app-66bf9.firebasestorage.app",
+    messagingSenderId: "833823730245",
+    appId: "1:833823730245:web:64dd77db2f273d24f9912c"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  // Inscription
+  document.getElementById("registerForm")?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(() => alert("Inscription réussie ✅"))
+      .catch((error) => alert("Erreur : " + error.message));
+  });
+
+  // Connexion
+  document.getElementById("loginForm")?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    signInWithEmailAndPassword(auth, email, password)
+      .then(() => window.location.href = "dashboard.html")
+      .catch((error) => alert("Erreur de connexion : " + error.message));
+  });
+</script>
