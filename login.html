@@ -1,162 +1,125 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Banque Facile - Connexion</title>
-  <link rel="stylesheet" href="CSS/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Connexion - Banque App</title>
   <style>
     body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(to bottom right, #cce7ff, #eaf3ff);
+      font-family: Arial, sans-serif;
+      background-color: #e3f2fd; /* fond bleu clair */
+      margin: 0;
+      padding: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100vh;
-      margin: 0;
     }
-    header {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    header img {
-      width: 120px;
-      height: auto;
-      border-radius: 12px;
-    }
-    h1 {
-      color: #0056b3;
-      font-size: 28px;
-      margin-top: 10px;
-    }
+
     .container {
-      background-color: white;
-      border-radius: 12px;
+      background: white;
       padding: 30px;
-      box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
-      width: 320px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
       text-align: center;
+      width: 320px;
     }
-    h2 {
-      color: #0056b3;
+
+    img.logo {
+      width: 120px;
       margin-bottom: 20px;
     }
-    label {
-      display: block;
-      text-align: left;
-      color: #333;
-      margin-bottom: 6px;
-      font-weight: bold;
+
+    h2 {
+      color: #1565c0;
+      margin-bottom: 20px;
     }
+
     input {
-      width: 100%;
+      width: 90%;
       padding: 10px;
-      margin-bottom: 15px;
-      border: 1px solid #ccc;
+      margin: 8px 0;
+      border: 1px solid #90caf9;
       border-radius: 8px;
       font-size: 14px;
     }
+
     button {
       width: 100%;
-      background-color: #007bff;
-      color: white;
-      border: none;
       padding: 10px;
+      background-color: #1565c0;
+      border: none;
+      color: white;
+      font-size: 16px;
       border-radius: 8px;
       cursor: pointer;
-      font-weight: bold;
-      transition: background-color 0.3s;
     }
+
     button:hover {
-      background-color: #0056b3;
+      background-color: #0d47a1;
     }
+
     p {
       margin-top: 10px;
-      font-size: 14px;
     }
+
     a {
-      color: #007bff;
+      color: #1565c0;
       text-decoration: none;
     }
+
     a:hover {
       text-decoration: underline;
-    }
-    footer {
-      margin-top: 30px;
-      color: #555;
-      font-size: 13px;
     }
   </style>
 </head>
 <body>
-
-  <header>
-    <img src="https://i.postimg.cc/yxKxf5qf/file-000000009b7861f78b615a6a6fe8ae03.png" alt="Logo Banque Facile">
-    <h1>Banque Facile</h1>
-  </header>
-
   <div class="container">
-    <h2>Connexion / Inscription</h2>
-    <form id="loginForm">
-      <label for="username">Adresse e-mail :</label>
-      <input type="email" id="username" name="username" placeholder="exemple@email.com" required>
+    <!-- Ton logo -->
+    <img src="https://i.postimg.cc/yxKxf5qf/file-000000009b7861f78b615a6a6fe8ae03.png" alt="Logo" class="logo">
 
-      <label for="password">Mot de passe :</label>
-      <input type="password" id="password" name="password" placeholder="********" required>
+    <h2>Connexion</h2>
+    <input type="email" id="email" placeholder="Adresse e-mail" required />
+    <input type="password" id="password" placeholder="Mot de passe" required />
+    <button onclick="login()">Se connecter</button>
 
-      <button type="submit">Se connecter / S'inscrire</button>
-    </form>
-
-    <p>Pas encore inscrit ? <a href="index.html">Retour à l'accueil</a></p>
+    <p>Pas encore de compte ? <a href="signup.html">Créer un compte</a></p>
   </div>
 
-  <footer>
-    © 2025 Banque Facile - Tous droits réservés
-  </footer>
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js"></script>
 
-  <!-- 🔥 Connexion Firebase -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } 
-      from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-
+  <script>
+    // Configuration Firebase (la même que dans signup.html)
     const firebaseConfig = {
       apiKey: "AIzaSyAwGbQuv9EoIvBm7WC0OLTQ41cgleXd804",
       authDomain: "banque-app-66bf9.firebaseapp.com",
       projectId: "banque-app-66bf9",
-      storageBucket: "banque-app-66bf9.firebasestorage.app",
-      messagingSenderId: "833823730245",
-      appId: "1:833823730245:web:64dd77db2f273d24f9912c"
+      storageBucket: "banque-app-66bf9.appspot.com",
+      messagingSenderId: "61613833199",
+      appId: "1:61613833199:web:5d4c81a1d8ecb6f7f3d6e0"
     };
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
+    // Initialisation Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
 
-    document.getElementById("loginForm").addEventListener("submit", (e) => {
-      e.preventDefault();
-      const email = document.getElementById("username").value;
+    // Fonction de connexion
+    function login() {
+      const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
 
-      // 🔹 Tentative de connexion
-      signInWithEmailAndPassword(auth, email, password)
-        .then(() => {
+      auth.signInWithEmailAndPassword(email, password)
+        .then(userCredential => {
           alert("Connexion réussie ✅");
-          window.location.href = "dashboard.html";
+          window.location.href = "dashboard.html"; // redirige vers ton tableau de bord
         })
-        .catch((error) => {
-          // 🔹 Si le compte n’existe pas, on le crée automatiquement
-          createUserWithEmailAndPassword(auth, email, password)
-            .then(() => {
-              alert("Compte créé avec succès 🎉");
-              window.location.href = "dashboard.html";
-            })
-            .catch((error) => {
-              alert("Erreur : " + error.message);
-            });
+        .catch(error => {
+          alert("Erreur : " + error.message);
         });
-    });
+    }
   </script>
-
 </body>
-      </html>
+</html>
