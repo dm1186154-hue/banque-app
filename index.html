@@ -1,88 +1,81 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Accueil - Transfert Sécurisé</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Transfert Sécurisé</title>
   <style>
     body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #70c1ff, #b3e0ff);
       margin: 0;
-      height: 100vh;
+      padding: 0;
       display: flex;
       justify-content: center;
       align-items: center;
-      background: linear-gradient(135deg, #4aa3ff, #a8d8ff);
-      font-family: "Poppins", sans-serif;
+      height: 100vh;
     }
 
     .container {
       text-align: center;
       background: white;
-      padding: 50px;
-      border-radius: 15px;
-      box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
-      width: 400px;
-      animation: fadeIn 1s ease-in-out;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      width: 90%;
+      max-width: 400px;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
+    .logo {
+      width: 120px;
+      height: auto;
+      margin-bottom: 20px;
+      border-radius: 10px;
     }
 
     h1 {
-      color: #0077ff;
-      margin-bottom: 15px;
+      color: #0078ff;
+      margin-bottom: 10px;
     }
 
     p {
-      color: #333;
-      font-size: 15px;
+      color: #555;
+      font-size: 16px;
       margin-bottom: 25px;
     }
 
-    .btn {
-      display: inline-block;
-      background-color: #0077ff;
+    button {
+      background-color: #0078ff;
       color: white;
+      border: none;
       padding: 12px 25px;
-      border-radius: 8px;
-      text-decoration: none;
+      border-radius: 10px;
       font-size: 16px;
+      cursor: pointer;
       transition: 0.3s;
     }
 
-    .btn:hover {
-      background-color: #005fd4;
-      transform: scale(1.05);
+    button:hover {
+      background-color: #005fcc;
     }
 
-    footer {
-      margin-top: 25px;
-      font-size: 13px;
-      color: #555;
-    }
-
-    footer a {
-      color: #0077ff;
+    a {
+      color: #0078ff;
       text-decoration: none;
     }
 
-    footer a:hover {
+    a:hover {
       text-decoration: underline;
     }
   </style>
 </head>
 <body>
-
   <div class="container">
-    <h1>Bienvenue sur <br> Transfert Sécurisé 💸</h1>
-    <p>Gérez facilement vos transferts d’argent avec Mobile Money et Wave, en toute sécurité.</p>
-    <a href="login.html" class="btn">Se connecter</a>
-    <footer>
-      <p>Pas encore de compte ? <a href="#">Créer un compte</a></p>
-    </footer>
+    <img class="logo" src="https://i.postimg.cc/yxKxf5qf/file-000000009b7861f78b615a6a6fe8ae03.png" alt="Logo Transfert Sécurisé">
+    <h1>Bienvenue sur<br>Transfert Sécurisé 💸</h1>
+    <p>Gérez facilement vos transferts d’argent avec<br>Mobile Money et Wave, en toute sécurité.</p>
+    <button onclick="window.location.href='login.html'">Se connecter</button>
+    <p>Pas encore de compte ? <a href="signup.html">Créer un compte</a></p>
   </div>
-
 </body>
 </html>
