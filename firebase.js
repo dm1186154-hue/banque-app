@@ -1,15 +1,21 @@
-// firebase.js
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+<!-- Firebase App (base SDK) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js"></script>
 
-const firebaseConfig = {
-  apiKey: "AIzaSyAwGbQuv9EoIvBm7WC0OLTQ41cgleXd804",
-  authDomain: "banque-app-66bf9.firebaseapp.com",
-  projectId: "banque-app-66bf9",
-  storageBucket: "banque-app-66bf9.firebasestorage.app",
-  messagingSenderId: "833823730245",
-  appId: "1:833823730245:web:64dd77db2f273d24f9912c"
-};
+<!-- Firebase Auth -->
+<script src="https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js"></script>
 
-// Initialise Firebase
-const app = initializeApp(firebaseConfig);
-console.log("Firebase connecté avec succès !");
+<script>
+  // Configuration Firebase
+  const firebaseConfig = {
+    apiKey: "AIzaSyAwGbQuv9EoIvBm7WC0OLTQ41cgleXd804",
+    authDomain: "banque-app-66bf9.firebaseapp.com",
+    projectId: "banque-app-66bf9",
+    storageBucket: "banque-app-66bf9.appspot.com",
+    messagingSenderId: "61613833199",
+    appId: "1:61613833199:web:5d4c81a1d8ecb6f7f3d6e0"
+  };
+
+  // Initialiser Firebase
+  const app = firebase.initializeApp(firebaseConfig);
+  const auth = firebase.getAuth(app);
+</script>
