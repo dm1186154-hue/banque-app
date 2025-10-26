@@ -1,44 +1,7 @@
-// === Configuration Firebase ===
-// (⚠️ Remplace les valeurs ci-dessous par celles de ton propre projet Firebase)
-const firebaseConfig = {
-  apiKey: "TA_CLE_API_ICI",
-  authDomain: "TON_PROJET.firebaseapp.com",
-  projectId: "TON_PROJET",
-  storageBucket: "TON_PROJET.appspot.com",
-  messagingSenderId: "TON_ID_MESSAGERIE",
-  appId: "TON_APP_ID"
-};
-
-// Initialisation de Firebase
-firebase.initializeApp(firebaseConfig);
-
-// === Gestion de l'inscription ===
-const signupForm = document.querySelector("form");
-
-signupForm.addEventListener("submit", async (e) => {
-  e.preventDefault();
-
-  const name = document.getElementById("name").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value;
-  const confirm = document.getElementById("confirm").value;
-
-  if (password !== confirm) {
-    alert("❌ Les mots de passe ne correspondent pas !");
-    return;
-  }
-
-  try {
-    // Création de l'utilisateur avec Firebase
-    const userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password);
-    const user = userCredential.user;
-
-    // Enregistrement du nom dans le profil utilisateur
-    await user.updateProfile({ displayName: name });
-
-    alert("✅ Inscription réussie !");
-    window.location.href = "dashboard.html"; // Redirection vers le tableau de bord
-  } catch (error) {
-    alert("⚠️ Erreur : " + error.message);
-  }
-});
+hash_config {
+  algorithm: SCRYPT,
+  base64_signer_key: 7Go9e5fHWIlfdrg65Gz5gmtWtd8rpqec2QuUfUNA8xQoLdsqDYSKziMQFoxmUI9+1Xj9om+0QVNtnwDSxGGYmg==,
+  base64_salt_separator: Bw==,
+  rounds: 8,
+  mem_cost: 14,
+}
