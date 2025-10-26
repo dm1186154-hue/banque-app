@@ -3,24 +3,98 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Banque Facile</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Transfert Sécurisé</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(180deg, #66b3ff, #cce6ff);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: white;
+      padding: 30px 25px;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 90%;
+      max-width: 400px;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    img.logo {
+      width: 130px;
+      height: auto;
+      margin-bottom: 20px;
+      border-radius: 20px;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+      animation: zoomIn 1s ease;
+    }
+
+    h1 {
+      color: #007bff;
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #333;
+      font-size: 15px;
+      margin-bottom: 25px;
+    }
+
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    a {
+      color: #007bff;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes zoomIn {
+      from { transform: scale(0.7); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <img src="https://i.postimg.cc/yxKxf5qf/file-000000009b7861f78b615a6a6fe8ae03.png" alt="Logo Banque Facile" class="logo">
-    <h1>Bienvenue sur Banque Facile</h1>
-  </header>
 
-  <main>
-    <h2>Connexion</h2>
-    <input type="email" id="email" placeholder="Email">
-    <input type="password" id="password" placeholder="Mot de passe">
-    <button id="loginBtn">Se connecter</button>
+  <!-- ✅ Logo centré en haut -->
+  <img class="logo" src="https://i.postimg.cc/yxKxf5qf/file-000000009b7861f78b615a6a6fe8ae03.png" alt="Logo Transfert Sécurisé">
 
-    <p id="message"></p>
-  </main>
+  <div class="container">
+    <h1>Bienvenue sur <br>Transfert Sécurisé 💸</h1>
+    <p>Gérez facilement vos transferts d’argent avec <br>Mobile Money et Wave, en toute sécurité.</p>
+    <button onclick="window.location.href='login.html'">Se connecter</button>
+    <p>Pas encore de compte ? <a href="register.html">Créer un compte</a></p>
+  </div>
 
-  <script type="module" src="script.js"></script>
 </body>
-</html>
+                        </html>
