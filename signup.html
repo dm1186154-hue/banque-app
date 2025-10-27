@@ -3,123 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Inscription - Banque App</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #e3f2fd; /* bleu clair */
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-    }
-
-    .container {
-      background: white;
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.2);
-      text-align: center;
-      width: 320px;
-    }
-
-    img.logo {
-      width: 120px;
-      margin-bottom: 20px;
-    }
-
-    h2 {
-      color: #1565c0;
-      margin-bottom: 20px;
-    }
-
-    input {
-      width: 90%;
-      padding: 10px;
-      margin: 8px 0;
-      border: 1px solid #90caf9;
-      border-radius: 8px;
-      font-size: 14px;
-    }
-
-    button {
-      width: 100%;
-      padding: 10px;
-      background-color: #1565c0;
-      border: none;
-      color: white;
-      font-size: 16px;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: #0d47a1;
-    }
-
-    p {
-      margin-top: 10px;
-    }
-
-    a {
-      color: #1565c0;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-  </style>
+  <title>Inscription - Banque Facile</title>
 </head>
 <body>
-  <div class="container">
-    <!-- Ton logo -->
-    <img src="https://i.postimg.cc/yxKxf5qf/file-000000009b7861f78b615a6a6fe8ae03.png" alt="Logo" class="logo">
+  <h2>Créer un compte</h2>
+  <form id="signup-form">
+    <input type="email" id="signup-email" placeholder="Email" required />
+    <input type="password" id="signup-password" placeholder="Mot de passe" required />
+    <button type="submit">S'inscrire</button>
+  </form>
 
-    <h2>Créer un compte</h2>
-    <input type="email" id="email" placeholder="Adresse e-mail" required />
-    <input type="password" id="password" placeholder="Mot de passe" required />
-    <button onclick="signup()">S’inscrire</button>
+  <p>Déjà un compte ? <a href="login.html">Se connecter</a></p>
 
-    <p>Déjà un compte ? <a href="login.html">Se connecter</a></p>
-  </div>
-
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js"></script>
-
-  <script>
-    // Configuration Firebase
-    const firebaseConfig = {
-      apiKey: "AIzaSyAwGbQuv9EoIvBm7WC0OLTQ41cgleXd804",
-      authDomain: "banque-app-66bf9.firebaseapp.com",
-      projectId: "banque-app-66bf9",
-      storageBucket: "banque-app-66bf9.appspot.com",
-      messagingSenderId: "61613833199",
-      appId: "1:61613833199:web:5d4c81a1d8ecb6f7f3d6e0"
-    };
-
-    // Initialisation Firebase
-    const app = firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-
-    // Fonction d’inscription
-    function signup() {
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
-
-      auth.createUserWithEmailAndPassword(email, password)
-        .then(userCredential => {
-          alert("Compte créé avec succès ✅");
-          window.location.href = "dashboard.html"; // redirige vers ton tableau de bord
-        })
-        .catch(error => {
-          alert("Erreur : " + error.message);
-        });
-    }
-  </script>
+  <script type="module" src="firebase.js"></script>
+  <script type="module" src="script.js"></script>
 </body>
 </html>
