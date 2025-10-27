@@ -3,17 +3,49 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Inscription - Banque Facile</title>
+  <title>Inscription - Banque App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0d1b2a;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    form {
+      background: #1b263b;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(255,255,255,0.1);
+      width: 300px;
+    }
+    input, button {
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+    }
+    button {
+      background: #00b4d8;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0096c7;
+    }
+  </style>
 </head>
 <body>
-  <h2>Créer un compte</h2>
   <form id="signup-form">
+    <h2>Créer un compte</h2>
     <input type="email" id="signup-email" placeholder="Email" required />
     <input type="password" id="signup-password" placeholder="Mot de passe" required />
     <button type="submit">S'inscrire</button>
   </form>
-
-  <p>Déjà un compte ? <a href="login.html">Se connecter</a></p>
 
   <script type="module" src="firebase.js"></script>
   <script type="module" src="script.js"></script>
