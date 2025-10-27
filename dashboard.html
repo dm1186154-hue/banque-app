@@ -1,120 +1,15 @@
-<!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js"></script>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tableau de bord</title>
+</head>
+<body>
+  <h2>Bienvenue sur ton tableau de bord</h2>
+  <button id="logout-btn">Déconnexion</button>
 
-<script>
-  // 🔑 Configuration Firebase
-  const firebaseConfig = {
-    apiKey: "AIzaSyAwGbQuv9EoIvBm7WC0OLTQ41cgleXd804",
-    authDomain: "banque-app-66bf9.firebaseapp.com",
-    projectId: "banque-app-66bf9",
-    storageBucket: "banque-app-66bf9.appspot.com",
-    messagingSenderId: "61613833199",
-    appId: "1:61613833199:web:5d4c81a1d8ecb6f7f3d6e0"
-  };
-
-  // ⚙️ Initialisation Firebase
-  const app = firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-  const db = firebase.firestore();
-
-  // 🧍 Vérifie la connexion utilisateur
-  auth.onAuthStateChanged(user => {
-    if (!user) {
-      alert("Veuillez vous connecter pour accéder au tableau de bord !");
-      window.location.href = "login.html";
-    } else {
-      // 🔄 Charger les infos utilisateur depuis Firestore
-      const userDoc = db.collection("users").doc(user.uid);
-      userDoc.get().then(doc => {
-        if (doc.exists) {
-          const data = doc.data();
-          document.getElementById("balance").textContent = data.balance + " FCFA";
-        } else {
-          // 🔰 Crée un nouveau compte avec 0 FCFA
-          userDoc.set({
-            email: user.email,
-            balance: 0,
-            transactions: []
-          });
-          document.getElementById("balance").textContent = "0 FCFA";
-        }
-      });
-    }
-  });
-
-  // 💸 Dépôt
-  function makeDeposit() {
-    const amount = prompt("Montant à déposer (FCFA) :");
-    if (amount && !isNaN(amount)) {
-      const user = auth.currentUser;
-      const userDoc = db.collection("users").doc(user.uid);
-      userDoc.update({
-        balance: firebase.firestore.FieldValue.increment(Number(amount))
-      }).then(() => {
-        alert("Dépôt de " + amount + " FCFA réussi ✅");
-        location.reload();
-      });
-    }
-  }
-
-  // 💸 Transfert
-  function makeTransfer() {
-    const recipientEmail = prompt("Email du destinataire :");
-    const amount = parseFloat(prompt("Montant à transférer (FCFA) :"));
-    if (recipientEmail && amount && amount > 0) {
-      const sender = auth.currentUser;
-      const senderDoc = db.collection("users").doc(sender.uid);
-
-      db.runTransaction(async (t) => {
-        const senderSnap = await t.get(senderDoc);
-        const senderBalance = senderSnap.data().balance;
-
-        if (senderBalance < amount) throw "Solde insuffisant ⚠️";
-
-        const recipientSnap = await db.collection("users")
-          .where("email", "==", recipientEmail)
-          .get();
-
-        if (recipientSnap.empty) throw "Destinataire introuvable ❌";
-
-        const recipientDoc = recipientSnap.docs[0].ref;
-
-        // 🔁 Effectue le transfert
-        t.update(senderDoc, { balance: senderBalance - amount });
-        t.update(recipientDoc, {
-          balance: firebase.firestore.FieldValue.increment(amount)
-        });
-      })
-      .then(() => {
-        alert("Transfert de " + amount + " FCFA effectué avec succès ✅");
-        location.reload();
-      })
-      .catch(error => alert("Erreur : " + error));
-    }
-  }
-
-  // 🏧 Retrait (simulation)
-  function makeWithdraw() {
-    const amount = prompt("Montant à retirer (FCFA) :");
-    if (amount && !isNaN(amount)) {
-      const user = auth.currentUser;
-      const userDoc = db.collection("users").doc(user.uid);
-      userDoc.update({
-        balance: firebase.firestore.FieldValue.increment(-Number(amount))
-      }).then(() => {
-        alert("Retrait de " + amount + " FCFA effectué ✅");
-        location.reload();
-      });
-    }
-  }
-
-  // 🚪 Déconnexion
-  function logout() {
-    auth.signOut().then(() => {
-      alert("Déconnexion réussie ✅");
-      window.location.href = "login.html";
-    });
-  }
-          </script>
+  <script type="module" src="firebase.js"></script>
+  <script type="module" src="script.js"></script>
+</body>
+</html>
