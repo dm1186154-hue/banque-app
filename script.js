@@ -1,31 +1,63 @@
-// Import Firebase
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
+import { auth } from "./firebase.js";
+import { 
+  createUserWithEmailAndPassword, 
+  signInWithEmailAndPassword,
+  signOut 
+} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 
-// Configuration Firebase
-const firebaseConfig = {
-  apiKey: "AIzaSyAwGbqv9eoEvBvj7lQ7MBYGr0PvCIs0o9s",
-  authDomain: "banque-app-66bf9.firebaseapp.com",
-  projectId: "banque-app-66bf9",
-  storageBucket: "banque-app-66bf9.appspot.com",
-  messagingSenderId: "833823730245",
-  appId: "1:833823730245:web:64dd77dbf2d73d24f9912c"
-};
+// === Sélection des éléments du DOM ===
+const signupForm = document.getElementById("signup-form");
+const loginForm = document.getElementById("login-form");
+const logoutBtn = document.getElementById("logout-btn");
 
-// Initialiser Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+// === INSCRIPTION ===
+if (signupForm) {
+  signupForm.addEventListener("submit", (e) => {
+    e.preventDefault();
 
-// Fonction de connexion
-document.getElementById("loginBtn").addEventListener("click", () => {
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
+    const email = document.getElementById("signup-email").value;
+    const password = document.getElementById("signup-password").value;
 
-  signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      document.getElementById("message").innerText = "Connexion réussie ✅";
-    })
-    .catch((error) => {
-      document.getElementById("message").innerText = "Erreur : " + error.message;
-    });
-});
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(() => {
+        alert("✅ Inscription réussie !");
+        window.location.href = "tableau.html"; // Redirige vers tableau
+      })
+      .catch((error) => {
+        alert("❌ Erreur : " + error.message);
+      });
+  });
+}
+
+// === CONNEXION ===
+if (loginForm) {
+  loginForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById("login-email").value;
+    const password = document.getElementById("login-password").value;
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then(() => {
+        alert("👋 Connexion réussie !");
+        window.location.href = "tableau.html";
+      })
+      .catch((error) => {
+        alert("❌ Erreur : " + error.message);
+      });
+  });
+}
+
+// === DÉCONNEXION ===
+if (logoutBtn) {
+  logoutBtn.addEventListener("click", () => {
+    signOut(auth)
+      .then(() => {
+        alert("🚪 Déconnexion réussie !");
+        window.location.href = "login.html";
+      })
+      .catch((error) => {
+        alert("❌ Erreur de déconnexion : " + error.message);
+      });
+  });
+            }
