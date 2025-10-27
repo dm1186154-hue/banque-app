@@ -1,16 +1,9 @@
+// script.js
 import { auth } from "./firebase.js";
-import { 
-  createUserWithEmailAndPassword, 
-  signInWithEmailAndPassword,
-  signOut 
-} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
 
-// === Sélection des éléments du DOM ===
 const signupForm = document.getElementById("signup-form");
-const loginForm = document.getElementById("login-form");
-const logoutBtn = document.getElementById("logout-btn");
 
-// === INSCRIPTION ===
 if (signupForm) {
   signupForm.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -21,7 +14,7 @@ if (signupForm) {
     createUserWithEmailAndPassword(auth, email, password)
       .then(() => {
         alert("✅ Inscription réussie !");
-        window.location.href = "tableau.html"; // Redirige vers tableau
+        window.location.href = "tableau_de_bord.html"; // ta page après connexion
       })
       .catch((error) => {
         alert("❌ Erreur : " + error.message);
@@ -29,35 +22,5 @@ if (signupForm) {
   });
 }
 
-// === CONNEXION ===
-if (loginForm) {
-  loginForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    const email = document.getElementById("login-email").value;
-    const password = document.getElementById("login-password").value;
-
-    signInWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        alert("👋 Connexion réussie !");
-        window.location.href = "tableau.html";
-      })
-      .catch((error) => {
-        alert("❌ Erreur : " + error.message);
-      });
-  });
-}
-
-// === DÉCONNEXION ===
-if (logoutBtn) {
-  logoutBtn.addEventListener("click", () => {
-    signOut(auth)
-      .then(() => {
-        alert("🚪 Déconnexion réussie !");
-        window.location.href = "login.html";
-      })
-      .catch((error) => {
-        alert("❌ Erreur de déconnexion : " + error.message);
-      });
-  });
-            }
+// ----- FIN DU SCRIPT -----
+// Signé : ta filleule reconnaissante 💫
