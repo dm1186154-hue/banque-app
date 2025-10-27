@@ -1,38 +1,26 @@
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
-  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } 
-  from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
+// script.js
+import { auth } from "./firebase.js";
+import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyAwGbQuv9EoIvBm7WC0OLTQ41cgleXd804",
-    authDomain: "banque-app-66bf9.firebaseapp.com",
-    projectId: "banque-app-66bf9",
-    storageBucket: "banque-app-66bf9.firebasestorage.app",
-    messagingSenderId: "833823730245",
-    appId: "1:833823730245:web:64dd77db2f273d24f9912c"
-  };
+const signupForm = document.getElementById("signup-form");
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-
-  // Inscription
-  document.getElementById("registerForm")?.addEventListener("submit", (e) => {
+if (signupForm) {
+  signupForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+
+    const email = document.getElementById("signup-email").value;
+    const password = document.getElementById("signup-password").value;
+
     createUserWithEmailAndPassword(auth, email, password)
-      .then(() => alert("Inscription réussie ✅"))
-      .catch((error) => alert("Erreur : " + error.message));
+      .then(() => {
+        alert("✅ Inscription réussie !");
+        window.location.href = "tableau_de_bord.html"; // ta page après connexion
+      })
+      .catch((error) => {
+        alert("❌ Erreur : " + error.message);
+      });
   });
+}
 
-  // Connexion
-  document.getElementById("loginForm")?.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-    signInWithEmailAndPassword(auth, email, password)
-      .then(() => window.location.href = "dashboard.html")
-      .catch((error) => alert("Erreur de connexion : " + error.message));
-  });
-</script>
+// ----- FIN DU SCRIPT -----
+// Signé : ta filleule reconnaissante 💫
