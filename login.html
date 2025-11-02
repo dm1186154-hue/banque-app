@@ -3,16 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Connexion - Banque App</title>
-
-  <!-- 🌍 Style du sélecteur international -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.5.2/css/intlTelInput.min.css" />
-
+  <title>Inscription - Transfert Sécurisé 💸</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/css/intlTelInput.min.css" />
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: linear-gradient(to bottom, #0078ff, #b3e0ff);
-      color: white;
+      background: linear-gradient(to bottom, #70c1ff, #b3e0ff);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -20,45 +16,58 @@
       margin: 0;
     }
 
-    form {
-      background: white;
-      color: #333;
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      width: 320px;
+    .container {
+      background: #ffffff;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       text-align: center;
+      width: 90%;
+      max-width: 400px;
+    }
+
+    .logo {
+      width: 120px;
+      height: auto;
+      margin-bottom: 20px;
+      border-radius: 10px;
+    }
+
+    h2 {
+      color: #0078ff;
+      margin-bottom: 20px;
     }
 
     input, button {
       width: 100%;
       margin: 10px 0;
       padding: 10px;
-      border: none;
-      border-radius: 8px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
       font-size: 16px;
     }
 
-    input {
-      background: #f0f0f0;
-    }
-
     button {
-      background: #0078ff;
+      background-color: #0078ff;
       color: white;
       font-weight: bold;
+      border: none;
       cursor: pointer;
       transition: 0.3s;
     }
 
     button:hover {
-      background: #005fcc;
+      background-color: #005fcc;
+    }
+
+    p {
+      color: #333;
+      margin-top: 10px;
     }
 
     a {
       color: #0078ff;
       text-decoration: none;
-      font-weight: bold;
     }
 
     a:hover {
@@ -67,45 +76,57 @@
   </style>
 </head>
 <body>
-  <form id="login-form">
-    <h2>Connexion</h2>
-    <input type="tel" id="login-phone" placeholder="Numéro de téléphone" required />
-    <input type="password" id="login-password" placeholder="Mot de passe" required />
-    <button type="submit">Se connecter</button>
-    <p>Pas encore de compte ? <a href="inscription.html">Créer un compte</a></p>
-  </form>
+  <div class="container">
+    <img class="logo" src="https://i.postimg.cc/yxKxf5qf/file-000000009b7861f78b615a6a6fe8ae03.png" alt="Logo Banque Facile">
+    <h2>Créer un compte</h2>
 
-  <!-- 📞 Script du sélecteur de pays -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.5.2/js/intlTelInput.min.js"></script>
+    <form id="signup-form">
+      <input type="tel" id="signup-phone" placeholder="Numéro de téléphone" required />
+      <input type="password" id="signup-password" placeholder="Mot de passe" required />
+      <button type="submit">S'inscrire</button>
+    </form>
+
+    <p>Déjà un compte ? <a href="connexion.html">Se connecter</a></p>
+  </div>
+
+  <!-- Librairie pour tous les pays -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/intlTelInput.min.js"></script>
 
   <script type="module">
     import { auth } from "./firebase.js";
-    import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
+    import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
 
-    // Activer le sélecteur de pays
-    const input = document.querySelector("#login-phone");
-    const iti = window.intlTelInput(input, {
-      initialCountry: "ci", // Côte d’Ivoire 🇨🇮 par défaut
-      preferredCountries: ["ci", "ml", "sn", "ng", "fr", "us", "sa"],
-      separateDialCode: true,
+    const phoneInput = document.querySelector("#signup-phone");
+    const iti = window.intlTelInput(phoneInput, {
+      initialCountry: "auto",
+      geoIpLookup: (success, failure) => {
+        fetch("https://ipapi.co/json")
+          .then(res => res.json())
+          .then(data => success(data.country_code))
+          .catch(() => success("us"));
+      },
+      preferredCountries: ["ci", "ml", "sn", "cm", "fr", "us", "sa"],
+      utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js"
     });
 
-    // Gestion de la connexion
-    const loginForm = document.getElementById("login-form");
-    loginForm.addEventListener("submit", async (e) => {
+    document.getElementById("signup-form").addEventListener("submit", (e) => {
       e.preventDefault();
+      const phoneNumber = iti.getNumber(); // format complet international
+      const password = document.getElementById("signup-password").value;
+      const emailAuto = `${phoneNumber.replace(/\+/g, '')}@banque.com`;
 
-      const phoneNumber = iti.getNumber(); // récupère le numéro complet avec +225 etc.
-      const password = document.getElementById("login-password").value;
-      const emailAuto = `${phoneNumber.replace(/\+/g, '').replace(/\s/g, '')}@banque.com`;
-
-      try {
-        await signInWithEmailAndPassword(auth, emailAuto, password);
-        alert("✅ Connexion réussie !");
-        window.location.href = "tableau_de_bord.html";
-      } catch (error) {
-        alert("❌ Erreur : " + error.message);
-      }
+      createUserWithEmailAndPassword(auth, emailAuto, password)
+        .then(() => {
+          alert("✅ Inscription réussie !");
+          window.location.href = "tableau_de_bord.html";
+        })
+        .catch((error) => {
+          if (error.code === "auth/email-already-in-use") {
+            alert("⚠️ Ce numéro est déjà enregistré. Essayez de vous connecter !");
+          } else {
+            alert("❌ Erreur : " + error.message);
+          }
+        });
     });
   </script>
 </body>
