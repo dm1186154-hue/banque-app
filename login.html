@@ -4,6 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Connexion - Banque App</title>
+
+  <!-- 🌍 Style du sélecteur international -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.5.2/css/intlTelInput.min.css" />
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -65,26 +69,35 @@
 <body>
   <form id="login-form">
     <h2>Connexion</h2>
-    <input type="tel" id="login-phone" placeholder="Téléphone (ex: +22507000000)" required />
+    <input type="tel" id="login-phone" placeholder="Numéro de téléphone" required />
     <input type="password" id="login-password" placeholder="Mot de passe" required />
     <button type="submit">Se connecter</button>
     <p>Pas encore de compte ? <a href="inscription.html">Créer un compte</a></p>
   </form>
 
-  <script type="module" src="firebase.js"></script>
+  <!-- 📞 Script du sélecteur de pays -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.5.2/js/intlTelInput.min.js"></script>
+
   <script type="module">
     import { auth } from "./firebase.js";
     import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
 
+    // Activer le sélecteur de pays
+    const input = document.querySelector("#login-phone");
+    const iti = window.intlTelInput(input, {
+      initialCountry: "ci", // Côte d’Ivoire 🇨🇮 par défaut
+      preferredCountries: ["ci", "ml", "sn", "ng", "fr", "us", "sa"],
+      separateDialCode: true,
+    });
+
+    // Gestion de la connexion
     const loginForm = document.getElementById("login-form");
     loginForm.addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      const phone = document.getElementById("login-phone").value.trim();
+      const phoneNumber = iti.getNumber(); // récupère le numéro complet avec +225 etc.
       const password = document.getElementById("login-password").value;
-
-      // On reconstruit le même e-mail fictif utilisé à l’inscription
-      const emailAuto = `${phone.replace(/\+/g, '').replace(/\s/g, '')}@banque.com`;
+      const emailAuto = `${phoneNumber.replace(/\+/g, '').replace(/\s/g, '')}@banque.com`;
 
       try {
         await signInWithEmailAndPassword(auth, emailAuto, password);
