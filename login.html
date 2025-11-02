@@ -3,19 +3,113 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Connexion - Banque Facile</title>
+  <title>Connexion - Banque App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #0078ff, #b3e0ff);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    form {
+      background: white;
+      color: #333;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      width: 320px;
+      text-align: center;
+    }
+
+    input, button {
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    input {
+      background: #f0f0f0;
+    }
+
+    button {
+      background: #0078ff;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #005fcc;
+    }
+
+    a {
+      color: #0078ff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
-  <h2>Connexion</h2>
   <form id="login-form">
-    <input type="email" id="login-email" placeholder="Email" required />
+    <h2>Connexion</h2>
+    <input type="text" id="login-nom" placeholder="Nom" required />
+    <input type="text" id="login-prenom" placeholder="Prénom" required />
     <input type="password" id="login-password" placeholder="Mot de passe" required />
     <button type="submit">Se connecter</button>
+    <p>Pas encore de compte ? <a href="inscription.html">Créer un compte</a></p>
   </form>
 
-  <p>Pas encore inscrit ? <a href="inscription.html">Créer un compte</a></p>
-
   <script type="module" src="firebase.js"></script>
-  <script type="module" src="script.js"></script>
+  <script type="module">
+    import { auth } from "./firebase.js";
+    import { signInWithEmailAndPassword, getAuth, fetchSignInMethodsForEmail } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
+    import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js";
+
+    const db = getFirestore();
+    const loginForm = document.getElementById("login-form");
+
+    loginForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const nom = document.getElementById("login-nom").value.trim();
+      const prenom = document.getElementById("login-prenom").value.trim();
+      const password = document.getElementById("login-password").value;
+
+      try {
+        // On cherche l’utilisateur dans Firestore avec son nom et prénom
+        const usersRef = collection(db, "utilisateurs");
+        const q = query(usersRef, where("nom", "==", nom), where("prenom", "==", prenom));
+        const querySnapshot = await getDocs(q);
+
+        if (querySnapshot.empty) {
+          alert("❌ Aucun compte trouvé avec ce nom et prénom.");
+          return;
+        }
+
+        // On prend le premier utilisateur trouvé et on récupère son email
+        const userData = querySnapshot.docs[0].data();
+        const email = userData.email;
+
+        await signInWithEmailAndPassword(auth, email, password);
+        alert("✅ Connexion réussie !");
+        window.location.href = "tableau_de_bord.html";
+      } catch (error) {
+        alert("⚠️ Erreur : " + error.message);
+      }
+    });
+  </script>
 </body>
 </html>
