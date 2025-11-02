@@ -65,8 +65,7 @@
 <body>
   <form id="login-form">
     <h2>Connexion</h2>
-    <input type="text" id="login-nom" placeholder="Nom" required />
-    <input type="text" id="login-prenom" placeholder="Prénom" required />
+    <input type="tel" id="login-phone" placeholder="Téléphone (ex: +22507000000)" required />
     <input type="password" id="login-password" placeholder="Mot de passe" required />
     <button type="submit">Se connecter</button>
     <p>Pas encore de compte ? <a href="inscription.html">Créer un compte</a></p>
@@ -75,39 +74,24 @@
   <script type="module" src="firebase.js"></script>
   <script type="module">
     import { auth } from "./firebase.js";
-    import { signInWithEmailAndPassword, getAuth, fetchSignInMethodsForEmail } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
-    import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js";
+    import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
 
-    const db = getFirestore();
     const loginForm = document.getElementById("login-form");
-
     loginForm.addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      const nom = document.getElementById("login-nom").value.trim();
-      const prenom = document.getElementById("login-prenom").value.trim();
+      const phone = document.getElementById("login-phone").value.trim();
       const password = document.getElementById("login-password").value;
 
+      // On reconstruit le même e-mail fictif utilisé à l’inscription
+      const emailAuto = `${phone.replace(/\+/g, '').replace(/\s/g, '')}@banque.com`;
+
       try {
-        // On cherche l’utilisateur dans Firestore avec son nom et prénom
-        const usersRef = collection(db, "utilisateurs");
-        const q = query(usersRef, where("nom", "==", nom), where("prenom", "==", prenom));
-        const querySnapshot = await getDocs(q);
-
-        if (querySnapshot.empty) {
-          alert("❌ Aucun compte trouvé avec ce nom et prénom.");
-          return;
-        }
-
-        // On prend le premier utilisateur trouvé et on récupère son email
-        const userData = querySnapshot.docs[0].data();
-        const email = userData.email;
-
-        await signInWithEmailAndPassword(auth, email, password);
+        await signInWithEmailAndPassword(auth, emailAuto, password);
         alert("✅ Connexion réussie !");
         window.location.href = "tableau_de_bord.html";
       } catch (error) {
-        alert("⚠️ Erreur : " + error.message);
+        alert("❌ Erreur : " + error.message);
       }
     });
   </script>
