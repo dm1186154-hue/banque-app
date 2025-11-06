@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tableau de bord - Banque Facile 💸</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(to bottom, #0d1b2a, #1b263b);
+      color: white;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    /* --- Barre de navigation --- */
+    nav {
+      background-color: #00b4d8;
+      padding: 12px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 25px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+
+    nav img {
+      width: 45px;
+      height: 45px;
+      border-radius: 10px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: #022b3a;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.1);
+      margin: 60px auto 0;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      width: 90%;
+      max-width: 400px;
+    }
+
+    h1 {
+      color: #00b4d8;
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #ccc;
+      font-size: 16px;
+      margin-bottom: 25px;
+    }
+
+    #logout-btn {
+      background: #00b4d8;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    #logout-btn:hover {
+      background: #0096c7;
+    }
+
+    footer {
+      margin-top: 30px;
+      font-size: 13px;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <!-- 🔷 Barre de navigation -->
+  <nav>
+    <img src="https://i.postimg.cc/yxKxf5qf/file-000000009b7861f78b615a6a6fe8ae03.png" alt="Logo Banque Facile">
+    <a href="index.html">🏠 Accueil</a>
+    <a href="contact.html">📞 Contact</a>
+    <a href="à propos.html">ℹ️ À propos</a>
+  </nav>
+
+  <!-- 🔶 Contenu principal -->
+  <div class="container">
+    <h1>Bienvenue 👋</h1>
+    <p id="user-info">Chargement des informations...</p>
+    <button id="logout-btn">Se déconnecter</button>
+  </div>
+
+  <footer>© 2025 Banque Facile — Sécurité & Confiance 💸</footer>
+
+  <!-- 🔌 Script Firebase -->
+  <script type="module">
+    import { auth } from "./firebase.js";
+    import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
+
+    const userInfo = document.getElementById("user-info");
+    const logoutBtn = document.getElementById("logout-btn");
+
+    // ✅ Vérifie si un utilisateur est connecté
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        userInfo.textContent = `Bonjour, ${user.displayName || "Utilisateur"} 👋`;
+      } else {
+        window.location.href = "connexion.html";
+      }
+    });
+
+    // 🔴 Déconnexion
+    logoutBtn.addEventListener("click", () => {
+      signOut(auth)
+        .then(() => {
+          alert("👋 Déconnexion réussie !");
+          window.location.href = "index.html";
+        })
+        .catch((error) => {
+          alert("❌ Erreur : " + error.message);
+        });
+    });
+  </script>
+</body>
+  </html>
