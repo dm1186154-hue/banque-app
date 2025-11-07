@@ -1,6 +1,6 @@
 // script.js
 import { auth } from "./firebase.js";
-import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
+import { createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
 
 const signupForm = document.getElementById("signup-form");
 
@@ -8,19 +8,30 @@ if (signupForm) {
   signupForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    const email = document.getElementById("signup-email").value;
+    const countryCode = document.getElementById("signup-country").value;
+    const phone = document.getElementById("signup-phone").value.trim();
     const password = document.getElementById("signup-password").value;
 
-    createUserWithEmailAndPassword(auth, email, password)
+    if (!phone.match(/^[0-9]{6,15}$/)) {
+      alert("Veuillez entrer un numéro de téléphone valide.");
+      return;
+    }
+
+    // Création d’un email factice unique pour Firebase
+    const fakeEmail = `${countryCode.replace("+","")}_${phone}@banque-app.com`;
+
+    createUserWithEmailAndPassword(auth, fakeEmail, password)
+      .then((userCredential) => {
+        return updateProfile(userCredential.user, {
+          displayName: `Utilisateur ${countryCode}${phone}`,
+        });
+      })
       .then(() => {
         alert("✅ Inscription réussie !");
-        window.location.href = "tableau_de_bord.html"; // ta page après connexion
+        window.location.href = "tableau_de_bord.html";
       })
       .catch((error) => {
         alert("❌ Erreur : " + error.message);
       });
   });
 }
-
-// ----- FIN DU SCRIPT -----
-// Signé : ta filleule reconnaissante 💫
