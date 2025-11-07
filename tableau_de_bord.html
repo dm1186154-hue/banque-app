@@ -30,6 +30,20 @@
     <div id="message" class="message"></div>
   </div>
 
+  <!-- Fenêtre de transfert -->
+  <div id="modal-transfert" class="modal">
+    <div class="modal-content">
+      <h2>💸 Transfert d’argent</h2>
+      <input type="text" id="destinataire" placeholder="Téléphone du destinataire" />
+      <input type="number" id="montant" placeholder="Montant à transférer (FCFA)" />
+      <div class="modal-buttons">
+        <button id="confirmer-transfert">Confirmer</button>
+        <button id="annuler-transfert" class="cancel">Annuler</button>
+      </div>
+      <p id="modal-message"></p>
+    </div>
+  </div>
+
   <script type="module" src="tableau.js"></script>
 </body>
 </html>
