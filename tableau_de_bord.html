@@ -1,49 +1,35 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tableau de bord</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to bottom, #0077b6, #48cae4);
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: white;
-      flex-direction: column;
-      text-align: center;
-    }
-    h2 { font-size: 24px; margin-bottom: 20px; }
-    button {
-      background: white;
-      color: #0077b6;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    button:hover {
-      background: #caf0f8;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tableau de bord - Banque Digitale</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
 </head>
 <body>
-  <h2>Bienvenue sur ton tableau de bord 💳</h2>
-  <button id="logout-btn">Déconnexion</button>
+  <div class="dashboard-container">
+    <div class="header">
+      <h1>Bienvenue sur ton tableau de bord</h1>
+      <p id="user-name">👋 Bonjour, <span id="display-name"></span></p>
+    </div>
 
-  <script type="module" src="firebase.js"></script>
-  <script type="module">
-    import { auth, signOut } from "./firebase.js";
-    document.getElementById("logout-btn").addEventListener("click", () => {
-      signOut(auth).then(() => {
-        alert("Déconnexion réussie !");
-        window.location.href = "index.html";
-      });
-    });
-  </script>
+    <div class="card">
+      <div class="balance">
+        <h2>💰 Solde de ton compte</h2>
+        <p id="solde">0 FCFA</p>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button id="btn-transfert">Transférer de l’argent</button>
+      <button id="btn-historique">Voir l’historique</button>
+      <button id="logout" class="logout">Déconnexion</button>
+    </div>
+
+    <div id="message" class="message"></div>
+  </div>
+
+  <script type="module" src="tableau.js"></script>
 </body>
 </html>
