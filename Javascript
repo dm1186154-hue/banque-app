@@ -1,15 +1,21 @@
+// tableau.js
 import { auth, db } from "./firebase.js";
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
-import { doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js";
+import {
+  doc, getDoc, updateDoc,
+  collection, addDoc, query, where, orderBy, getDocs, serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js";
 
+/* ----- éléments du DOM ----- */
 const soldeEl = document.getElementById("solde");
 const logoutBtn = document.getElementById("logout");
 const transfertBtn = document.getElementById("btn-transfert");
 const historiqueBtn = document.getElementById("btn-historique");
 const msg = document.getElementById("message");
 const userName = document.getElementById("display-name");
+const notif = document.getElementById("notif");
 
-// Modal transfert
+/* modals */
 const modal = document.getElementById("modal-transfert");
 const confirmerBtn = document.getElementById("confirmer-transfert");
 const annulerBtn = document.getElementById("annuler-transfert");
@@ -17,38 +23,64 @@ const montantInput = document.getElementById("montant");
 const destinataireInput = document.getElementById("destinataire");
 const modalMsg = document.getElementById("modal-message");
 
-let currentUser;
+const modalHist = document.getElementById("modal-historique");
+const historiqueList = document.getElementById("historique-list");
+const closeHistBtn = document.getElementById("close-historique");
+
+let currentUser = null;
 let currentSolde = 0;
 
-// Chargement de l’utilisateur
+/* ----- helpers ----- */
+function showNotification(text, success = true) {
+  notif.textContent = text;
+  notif.style.background = success ? "#1dd1a1" : "#ff6b6b";
+  notif.classList.add("show");
+  setTimeout(() => notif.classList.remove("show"), 3300);
+}
+
+/* ----- auth state ----- */
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
     window.location.href = "connexion.html";
-  } else {
-    currentUser = user;
-    const docRef = doc(db, "comptes", user.uid);
-    const docSnap = await getDoc(docRef);
+    return;
+  }
+  currentUser = user;
 
-    if (docSnap.exists()) {
-      const data = docSnap.data();
+  // afficher nom
+  userName.textContent = user.displayName || user.email || "Utilisateur";
+
+  // lire le document du compte
+  try {
+    const docRef = doc(db, "comptes", user.uid);
+    const snap = await getDoc(docRef);
+    if (snap.exists()) {
+      const data = snap.data();
       currentSolde = data.solde || 0;
-      soldeEl.textContent = `${currentSolde.toLocaleString()} FCFA`;
-      userName.textContent = `${data.prenom || "Utilisateur"} ${data.nom || ""}`;
+      soldeEl.textContent = `${Number(currentSolde).toLocaleString()} FCFA`;
+    } else {
+      // si pas de doc, on en crée un minimal (solde 0)
+      await updateDoc(docRef, { solde: 0 }).catch(()=>{});
+      currentSolde = 0;
+      soldeEl.textContent = `0 FCFA`;
     }
+  } catch (err) {
+    console.error("Erreur lecture compte:", err);
+    showNotification("Erreur lecture compte", false);
   }
 });
 
-// Déconnexion
-logoutBtn.addEventListener("click", () => {
-  signOut(auth).then(() => (window.location.href = "connexion.html"));
+/* ----- déconnexion ----- */
+logoutBtn.addEventListener("click", async () => {
+  await signOut(auth);
+  window.location.href = "connexion.html";
 });
 
-// Ouvrir le modal
+/* ouvrir modal */
 transfertBtn.addEventListener("click", () => {
   modal.style.display = "flex";
 });
 
-// Fermer le modal
+/* fermer modal */
 annulerBtn.addEventListener("click", () => {
   modal.style.display = "none";
   modalMsg.textContent = "";
@@ -56,35 +88,100 @@ annulerBtn.addEventListener("click", () => {
   destinataireInput.value = "";
 });
 
-// Confirmer transfert
+/* confirmer transfert : update solde + ajouter transaction */
 confirmerBtn.addEventListener("click", async () => {
+  modalMsg.textContent = "";
   const montant = parseFloat(montantInput.value);
   const destinataire = destinataireInput.value.trim();
 
   if (!montant || montant <= 0 || !destinataire) {
-    modalMsg.textContent = "⚠️ Saisis un montant valide et un numéro de destinataire.";
+    modalMsg.textContent = "⚠️ Saisis un montant valide et un numéro du destinataire.";
     return;
   }
-
   if (montant > currentSolde) {
     modalMsg.textContent = "❌ Solde insuffisant.";
     return;
   }
 
-  const newSolde = currentSolde - montant;
-  const docRef = doc(db, "comptes", currentUser.uid);
+  try {
+    const newSolde = currentSolde - montant;
+    const compteRef = doc(db, "comptes", currentUser.uid);
 
-  await updateDoc(docRef, { solde: newSolde });
+    // mise à jour du solde
+    await updateDoc(compteRef, { solde: newSolde });
 
-  currentSolde = newSolde;
-  soldeEl.textContent = `${newSolde.toLocaleString()} FCFA`;
-  modalMsg.textContent = "✅ Transfert effectué avec succès !";
-  setTimeout(() => {
-    modal.style.display = "none";
-  }, 2000);
+    // enregistrement de la transaction
+    await addDoc(collection(db, "transactions"), {
+      fromUid: currentUser.uid,
+      fromName: currentUser.displayName || null,
+      destinataire,
+      montant,
+      type: "envoi",
+      createdAt: serverTimestamp()
+    });
+
+    // mise à jour UI
+    currentSolde = newSolde;
+    soldeEl.textContent = `${Number(currentSolde).toLocaleString()} FCFA`;
+    modalMsg.style.color = "green";
+    modalMsg.textContent = "✅ Transfert effectué !";
+    showNotification("Transfert réussi ✅");
+
+    // fermer et nettoyer
+    setTimeout(() => {
+      modal.style.display = "none";
+      modalMsg.textContent = "";
+      montantInput.value = "";
+      destinataireInput.value = "";
+    }, 1500);
+
+  } catch (err) {
+    console.error(err);
+    modalMsg.style.color = "red";
+    modalMsg.textContent = "❌ Erreur lors du transfert.";
+    showNotification("Erreur transfert", false);
+  }
 });
 
-// Historique (provisoire)
-historiqueBtn.addEventListener("click", () => {
-  msg.textContent = "📜 L’historique des transactions sera bientôt disponible...";
+/* historique : récupérer transactions where fromUid == currentUser.uid ou destinataire == number */
+historiqueBtn.addEventListener("click", async () => {
+  if (!currentUser) return showNotification("Utilisateur non connecté", false);
+  historiqueList.innerHTML = "<p>Chargement...</p>";
+  modalHist.style.display = "flex";
+
+  try {
+    const q = query(collection(db, "transactions"),
+                    where("fromUid", "==", currentUser.uid),
+                    orderBy("createdAt", "desc"));
+    const snapshot = await getDocs(q);
+
+    if (snapshot.empty) {
+      historiqueList.innerHTML = "<p>Aucune transaction trouvée.</p>";
+      return;
+    }
+    const items = [];
+    snapshot.forEach(docSnap => {
+      const d = docSnap.data();
+      const date = d.createdAt ? d.createdAt.toDate().toLocaleString() : "—";
+      items.push(`<div class="tx-item">
+        <strong>${d.type === "envoi" ? "Envoi" : "Tx"}</strong> — ${Number(d.montant).toLocaleString()} FCFA<br/>
+        Vers: ${d.destinataire}<br/>
+        <small>${date}</small>
+      </div>`);
+    });
+    historiqueList.innerHTML = items.join("");
+  } catch (err) {
+    console.error(err);
+    historiqueList.innerHTML = "<p>Erreur en chargeant l'historique.</p>";
+  }
+});
+
+closeHistBtn?.addEventListener("click", () => {
+  modalHist.style.display = "none";
+});
+
+/* fermer modals au clic hors contenu */
+window.addEventListener("click", (e) => {
+  if (e.target === modal) modal.style.display = "none";
+  if (e.target === modalHist) modalHist.style.display = "none";
 });
