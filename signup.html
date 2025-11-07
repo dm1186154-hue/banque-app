@@ -7,32 +7,41 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #0d1b2a;
+      background: linear-gradient(to bottom, #0d1b2a, #1b263b);
       color: white;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
+      margin: 0;
     }
     form {
       background: #1b263b;
       padding: 30px;
-      border-radius: 10px;
+      border-radius: 12px;
       box-shadow: 0 0 10px rgba(255,255,255,0.1);
-      width: 300px;
+      width: 320px;
+      text-align: center;
     }
-    input, button {
+    img {
+      width: 100px;
+      margin-bottom: 15px;
+      border-radius: 12px;
+    }
+    input, select, button {
       width: 100%;
       margin: 10px 0;
       padding: 10px;
       border: none;
       border-radius: 5px;
+      font-size: 15px;
     }
     button {
       background: #00b4d8;
       color: white;
       font-weight: bold;
       cursor: pointer;
+      transition: 0.3s;
     }
     button:hover {
       background: #0096c7;
@@ -41,8 +50,27 @@
 </head>
 <body>
   <form id="signup-form">
+    <img src="https://i.postimg.cc/yxKxf5qf/file-000000009b7861f78b615a6a6fe8ae03.png" alt="Logo Banque App">
     <h2>Créer un compte</h2>
-    <input type="email" id="signup-email" placeholder="Email" required />
+
+    <select id="signup-country" required>
+      <option value="+225">🇨🇮 Côte d’Ivoire (+225)</option>
+      <option value="+223">🇲🇱 Mali (+223)</option>
+      <option value="+221">🇸🇳 Sénégal (+221)</option>
+      <option value="+228">🇹🇬 Togo (+228)</option>
+      <option value="+229">🇧🇯 Bénin (+229)</option>
+      <option value="+237">🇨🇲 Cameroun (+237)</option>
+      <option value="+1">🇺🇸 États-Unis (+1)</option>
+      <option value="+33">🇫🇷 France (+33)</option>
+      <option value="+966">🇸🇦 Arabie Saoudite (+966)</option>
+      <option value="+44">🇬🇧 Royaume-Uni (+44)</option>
+      <option value="+49">🇩🇪 Allemagne (+49)</option>
+      <option value="+81">🇯🇵 Japon (+81)</option>
+      <option value="+86">🇨🇳 Chine (+86)</option>
+      <option value="+91">🇮🇳 Inde (+91)</option>
+    </select>
+
+    <input type="text" id="signup-phone" placeholder="Numéro de téléphone" required />
     <input type="password" id="signup-password" placeholder="Mot de passe" required />
     <button type="submit">S'inscrire</button>
   </form>
