@@ -1,43 +1,57 @@
 body {
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #0077ff, #00c6ff);
+  background: linear-gradient(135deg, #001f3f, #0077ff);
   color: #fff;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  margin: 0;
 }
 
-.container {
+.dashboard {
   background: rgba(255, 255, 255, 0.1);
   border-radius: 20px;
-  padding: 30px;
-  width: 320px;
+  width: 350px;
+  padding: 20px;
   text-align: center;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
 }
 
 .logo {
-  width: 80px;
-  margin-bottom: 15px;
+  width: 70px;
   border-radius: 50%;
 }
 
-input {
-  width: 90%;
-  padding: 10px;
-  margin: 10px 0;
-  border-radius: 8px;
-  border: none;
-  outline: none;
+header h1 {
+  margin-top: 5px;
+  font-size: 1.4em;
+  color: #00c6ff;
+}
+
+.welcome h2 {
+  margin-top: 15px;
+  font-size: 1.2em;
+}
+
+#balance {
+  font-size: 2em;
+  color: #00ff99;
+  margin: 10px 0 20px;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 button {
   background: #00c6ff;
   border: none;
-  padding: 10px 20px;
-  border-radius: 8px;
+  padding: 10px;
+  border-radius: 10px;
   color: white;
   font-weight: bold;
   cursor: pointer;
@@ -46,4 +60,10 @@ button {
 
 button:hover {
   background: #0099cc;
+}
+
+footer {
+  margin-top: 20px;
+  font-size: 0.8em;
+  color: #ccc;
 }
