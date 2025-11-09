@@ -1,81 +1,32 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Inscription - Banque App</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to bottom, #0d1b2a, #1b263b);
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
-    form {
-      background: #1b263b;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(255,255,255,0.1);
-      width: 320px;
-      text-align: center;
-    }
-    img {
-      width: 100px;
-      margin-bottom: 15px;
-      border-radius: 12px;
-    }
-    input, select, button {
-      width: 100%;
-      margin: 10px 0;
-      padding: 10px;
-      border: none;
-      border-radius: 5px;
-      font-size: 15px;
-    }
-    button {
-      background: #00b4d8;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    button:hover {
-      background: #0096c7;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inscription - Banque Facile</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <form id="signup-form">
-    <img src="https://i.postimg.cc/yxKxf5qf/file-000000009b7861f78b615a6a6fe8ae03.png" alt="Logo Banque App">
+  <div class="container">
+    <img src="banque_app_logo_final.jpg" alt="Logo Banque Facile" class="logo">
     <h2>Créer un compte</h2>
 
-    <select id="signup-country" required>
-      <option value="+225">🇨🇮 Côte d’Ivoire (+225)</option>
-      <option value="+223">🇲🇱 Mali (+223)</option>
-      <option value="+221">🇸🇳 Sénégal (+221)</option>
-      <option value="+228">🇹🇬 Togo (+228)</option>
-      <option value="+229">🇧🇯 Bénin (+229)</option>
-      <option value="+237">🇨🇲 Cameroun (+237)</option>
-      <option value="+1">🇺🇸 États-Unis (+1)</option>
-      <option value="+33">🇫🇷 France (+33)</option>
-      <option value="+966">🇸🇦 Arabie Saoudite (+966)</option>
-      <option value="+44">🇬🇧 Royaume-Uni (+44)</option>
-      <option value="+49">🇩🇪 Allemagne (+49)</option>
-      <option value="+81">🇯🇵 Japon (+81)</option>
-      <option value="+86">🇨🇳 Chine (+86)</option>
-      <option value="+91">🇮🇳 Inde (+91)</option>
-    </select>
+    <form id="signup-form">
+      <input type="text" id="nom" placeholder="Votre nom complet" required>
+      <input type="tel" id="phone" placeholder="+225 07 45 12 34 56" required>
 
-    <input type="text" id="signup-phone" placeholder="Numéro de téléphone" required />
-    <input type="password" id="signup-password" placeholder="Mot de passe" required />
-    <button type="submit">S'inscrire</button>
-  </form>
+      <div id="recaptcha-container"></div>
+
+      <button type="button" id="send-code">📩 Envoyer le code</button>
+
+      <div id="verify-section" style="display:none;">
+        <input type="text" id="verification-code" placeholder="Code de vérification">
+        <button type="button" id="verify-code">✅ Vérifier et s'inscrire</button>
+      </div>
+    </form>
+  </div>
 
   <script type="module" src="firebase.js"></script>
-  <script type="module" src="script.js"></script>
+  <script type="module" src="auth.js"></script>
 </body>
 </html>
