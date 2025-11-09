@@ -1,49 +1,35 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tableau de bord - Banque Digitale</title>
-  <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tableau de bord - Banque Facile</title>
+  <link rel="stylesheet" href="dashboard.css">
 </head>
 <body>
-  <div class="dashboard-container">
-    <div class="header">
-      <h1>Bienvenue sur ton tableau de bord</h1>
-      <p id="user-name">👋 Bonjour, <span id="display-name"></span></p>
-    </div>
+  <div class="dashboard">
+    <header>
+      <img src="banque_app_logo_final.jpg" class="logo" alt="Logo Banque Facile">
+      <h1>Banque Facile</h1>
+    </header>
 
-    <div class="card">
-      <div class="balance">
-        <h2>💰 Solde de ton compte</h2>
-        <p id="solde">0 FCFA</p>
-      </div>
-    </div>
+    <section class="welcome">
+      <h2>👋 Bienvenue, <span id="user-name"></span></h2>
+      <p>Ton solde actuel :</p>
+      <h1 id="balance">0 FCFA</h1>
+    </section>
 
-    <div class="actions">
-      <button id="btn-transfert">Transférer de l’argent</button>
-      <button id="btn-historique">Voir l’historique</button>
-      <button id="logout" class="logout">Déconnexion</button>
-    </div>
+    <section class="actions">
+      <button id="add-money">💰 Dépôt</button>
+      <button id="transfer-money">💸 Transférer</button>
+      <button id="logout">🚪 Déconnexion</button>
+    </section>
 
-    <div id="message" class="message"></div>
+    <footer>
+      <p>© 2025 Banque Facile — Sécurisé par Firebase 🔒</p>
+    </footer>
   </div>
 
-  <!-- Fenêtre de transfert -->
-  <div id="modal-transfert" class="modal">
-    <div class="modal-content">
-      <h2>💸 Transfert d’argent</h2>
-      <input type="text" id="destinataire" placeholder="Téléphone du destinataire" />
-      <input type="number" id="montant" placeholder="Montant à transférer (FCFA)" />
-      <div class="modal-buttons">
-        <button id="confirmer-transfert">Confirmer</button>
-        <button id="annuler-transfert" class="cancel">Annuler</button>
-      </div>
-      <p id="modal-message"></p>
-    </div>
-  </div>
-
-  <script type="module" src="tableau.js"></script>
+  <script type="module" src="dashboard.js"></script>
 </body>
 </html>
