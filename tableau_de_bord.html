@@ -1,35 +1,50 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tableau de bord - Banque Facile</title>
-  <link rel="stylesheet" href="dashboard.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de bord</title>
+    <link rel="stylesheet" href="CSS/style.css">
 </head>
+
 <body>
-  <div class="dashboard">
-    <header>
-      <img src="banque_app_logo_final.jpg" class="logo" alt="Logo Banque Facile">
-      <h1>Banque Facile</h1>
-    </header>
 
-    <section class="welcome">
-      <h2>👋 Bienvenue, <span id="user-name"></span></h2>
-      <p>Ton solde actuel :</p>
-      <h1 id="balance">0 FCFA</h1>
-    </section>
+    <div class="dashboard">
 
-    <section class="actions">
-      <button id="add-money">💰 Dépôt</button>
-      <button id="transfer-money">💸 Transférer</button>
-      <button id="logout">🚪 Déconnexion</button>
-    </section>
+        <header class="dash-header">
+            <img src="assets/logo.png" class="dash-logo">
 
-    <footer>
-      <p>© 2025 Banque Facile — Sécurisé par Firebase 🔒</p>
-    </footer>
-  </div>
+            <h1>Bienvenue dans votre espace</h1>
+        </header>
 
-  <script type="module" src="dashboard.js"></script>
+        <section class="card balance-card">
+            <h2>Solde actuel</h2>
+            <p class="amount">150 000 FCFA</p>
+        </section>
+
+        <section class="grid">
+
+            <div class="card action-card">
+                <h3>Envoyer de l'argent</h3>
+                <p>Transférez rapidement vers un autre numéro.</p>
+            </div>
+
+            <div class="card action-card">
+                <h3>Historique</h3>
+                <p>Consultez vos transactions.</p>
+            </div>
+
+            <div class="card action-card">
+                <h3>Paramètres</h3>
+                <p>Modifier vos informations.</p>
+            </div>
+
+        </section>
+
+        <button id="logout" class="btn-logout">Déconnexion</button>
+
+    </div>
+
+    <script type="module" src="main.js"></script>
 </body>
 </html>
