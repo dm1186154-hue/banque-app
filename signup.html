@@ -3,30 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Inscription - Banque Facile</title>
+  <title>Inscription • Banque</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  <div class="container">
-    <img src="banque_app_logo_final.jpg" alt="Logo Banque Facile" class="logo">
+
+<div class="container">
     <h2>Créer un compte</h2>
+    
+    <input type="text" id="nom" placeholder="Votre nom complet">
+    <input type="text" id="phone" placeholder="Ex : +2250500000000">
+    
+    <div id="recaptcha-container"></div>
 
-    <form id="signup-form">
-      <input type="text" id="nom" placeholder="Votre nom complet" required>
-      <input type="tel" id="phone" placeholder="+225 07 45 12 34 56" required>
+    <button id="btn-inscription">Recevoir le code</button>
 
-      <div id="recaptcha-container"></div>
+    <div id="sms-section" style="display:none;">
+        <input type="text" id="code" placeholder="Entrez le code reçu">
+        <button id="btn-valider">Valider le code</button>
+    </div>
+</div>
 
-      <button type="button" id="send-code">📩 Envoyer le code</button>
+<script type="module" src="firebase.js"></script>
+<script type="module" src="inscription.js"></script>
 
-      <div id="verify-section" style="display:none;">
-        <input type="text" id="verification-code" placeholder="Code de vérification">
-        <button type="button" id="verify-code">✅ Vérifier et s'inscrire</button>
-      </div>
-    </form>
-  </div>
-
-  <script type="module" src="firebase.js"></script>
-  <script type="module" src="auth.js"></script>
 </body>
 </html>
