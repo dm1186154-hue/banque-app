@@ -1,62 +1,109 @@
-// main.js — Banque Facile 💸
+// =============================
+//  IMPORTS FIREBASE
+// =============================
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { 
+    getAuth, 
+    RecaptchaVerifier, 
+    signInWithPhoneNumber,
+    signOut
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-// Importation de Firebase
-import { auth } from "./firebase.js";
-import {
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-  signOut
-} from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
+// =============================
+//  CONFIG FIREBASE (Ton code)
+// =============================
+const firebaseConfig = {
+    apiKey: "AIzaSyAwGbQuv9EoIvBm7WC0OLTQ41cgleXd804",
+    authDomain: "banque-app-66bf9.firebaseapp.com",
+    projectId: "banque-app-66bf9",
+    storageBucket: "banque-app-66bf9.firebasestorage.app",
+    messagingSenderId: "833823730245",
+    appId: "1:833823730245:web:64dd77db2f273d24f9912c"
+};
 
-// Sélection des éléments HTML (si présents)
-const loginForm = document.getElementById("login-form");
-const logoutBtn = document.getElementById("logout-btn");
+// =============================
+//  INITIALISATION
+// =============================
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
-// 🔐 Connexion utilisateur
-if (loginForm) {
-  loginForm.addEventListener("submit", (e) => {
-    e.preventDefault();
+// Utiliser automatiquement la langue du téléphone
+auth.useDeviceLanguage();
 
-    const email = document.getElementById("login-email").value;
-    const password = document.getElementById("login-password").value;
+// =============================
+//  RECAPTCHA INVISIBLE FIREBASE
+// =============================
+window.recaptchaVerifier = new RecaptchaVerifier(
+    auth, 
+    "recaptcha-container",
+    {
+        size: "invisible",
+        callback: (response) => {
+            console.log("reCAPTCHA validé 👍");
+        }
+    }
+);
 
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
+// =============================
+//  INSCRIPTION / CONNEXION (même système)
+// =============================
+let confirmationResult;
 
-        // Stocker le nom de l'utilisateur localement
-        localStorage.setItem("nomUtilisateur", user.displayName || "Utilisateur");
+// 📌 Bouton : envoyer le code OTP
+document.getElementById("sendCode").addEventListener("click", () => {
+    const phoneNumber = document.getElementById("phone").value;
 
-        alert("✅ Connexion réussie !");
-        window.location.href = "tableau_de_bord.html";
-      })
-      .catch((error) => {
-        alert("❌ Erreur de connexion : " + error.message);
-      });
-  });
-}
+    if (!phoneNumber) {
+        alert("Veuillez entrer un numéro de téléphone !");
+        return;
+    }
 
-// 👁️ Vérification de la session utilisateur
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    console.log("Utilisateur connecté :", user.displayName);
-    localStorage.setItem("nomUtilisateur", user.displayName || "Utilisateur");
-  } else {
-    console.log("Aucun utilisateur connecté.");
-  }
+    const appVerifier = window.recaptchaVerifier;
+
+    signInWithPhoneNumber(auth, phoneNumber, appVerifier)
+        .then((result) => {
+            confirmationResult = result;
+            alert("Un code a été envoyé à votre numéro ✔️");
+            console.log("Code envoyé !");
+        })
+        .catch((error) => {
+            console.error(error);
+            alert(error.message);
+        });
 });
 
-// 🚪 Déconnexion
-if (logoutBtn) {
-  logoutBtn.addEventListener("click", () => {
+// 📌 Vérifier le code OTP
+document.getElementById("verifyCode").addEventListener("click", () => {
+    const code = document.getElementById("otp").value;
+
+    if (!code) {
+        alert("Veuillez entrer le code reçu !");
+        return;
+    }
+
+    confirmationResult
+        .confirm(code)
+        .then((result) => {
+            const user = result.user;
+            alert("Connexion réussie ✔️");
+            window.location.href = "dashboard.html"; // Redirige vers le tableau de bord
+        })
+        .catch((error) => {
+            console.error(error);
+            alert("Code incorrect ❌");
+        });
+});
+
+// =============================
+//  DÉCONNEXION
+// =============================
+document.getElementById("logout")?.addEventListener("click", () => {
     signOut(auth)
-      .then(() => {
-        localStorage.removeItem("nomUtilisateur");
-        alert("Déconnexion réussie 👋");
-        window.location.href = "connexion.html";
-      })
-      .catch((error) => {
-        alert("Erreur lors de la déconnexion : " + error.message);
-      });
-  });
-}
+        .then(() => {
+            alert("Déconnexion réussie ✔️");
+            window.location.href = "index.html";
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+});
