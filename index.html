@@ -3,37 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Banque • Connexion</title>
-    <link rel="stylesheet" href="CSS/style.css">
+    <title>Banque - Accueil</title>
+    <link rel="stylesheet" href="css/style.css"> <!-- Ton fichier CSS -->
 </head>
 
 <body>
 
-    <div class="container">
+    <!-- ======= HEADER ======= -->
+    <header class="header">
+        <img src="banque_app_logo_final.jpg" alt="Logo Banque" class="logo">
+        <h1 class="titre">Banque Digitale Sécurisée</h1>
+    </header>
 
-        <!-- LOGO -->
-        <img src="assets/logo.png" class="logo" alt="Banque Logo">
+    <!-- ======= MENU ======= -->
+    <nav class="menu">
+        <a href="connexion.html">Connexion</a>
+        <a href="inscription.html">Créer un compte</a>
+        <a href="contact.html">Contact</a>
+        <a href="à propos.html">À propos</a>
+    </nav>
 
-        <h2>Connexion sécurisée</h2>
+    <!-- ======= SECTION PRINCIPALE ======= -->
+    <section class="hero">
+        <h2>Bienvenue dans votre banque en ligne ⭐</h2>
+        <p>Gérez votre argent facilement, envoyez de l’argent en toute sécurité, et surveillez vos transactions.</p>
 
-        <div class="input-group">
-            <label>Numéro de téléphone</label>
-            <input id="phone" type="text" placeholder="+225 05 07 19 28 52">
-        </div>
+        <a class="btn" href="inscription.html">Commencer maintenant</a>
+    </section>
 
-        <button id="sendCode" class="btn-primary">Envoyer le code</button>
-
-        <div class="input-group">
-            <label>Code reçu (OTP)</label>
-            <input id="otp" type="text" placeholder="Entrez le code">
-        </div>
-
-        <button id="verifyCode" class="btn-success">Se connecter</button>
-
-        <div id="recaptcha-container"></div>
-
-    </div>
-
-    <script type="module" src="main.js"></script>
-</body>
-</html>
+    <!-- ======= FOOTER ======= -->
+    <footer class="footer">
+        <p>&copy; 2025 Banque Digitale | Tous droits réservés
