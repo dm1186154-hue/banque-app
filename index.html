@@ -1,81 +1,39 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Transfert Sécurisé</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to bottom, #70c1ff, #b3e0ff);
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-
-    .container {
-      text-align: center;
-      background: white;
-      padding: 40px;
-      border-radius: 20px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      width: 90%;
-      max-width: 400px;
-    }
-
-    .logo {
-      width: 120px;
-      height: auto;
-      margin-bottom: 20px;
-      border-radius: 10px;
-    }
-
-    h1 {
-      color: #0078ff;
-      margin-bottom: 10px;
-    }
-
-    p {
-      color: #555;
-      font-size: 16px;
-      margin-bottom: 25px;
-    }
-
-    button {
-      background-color: #0078ff;
-      color: white;
-      border: none;
-      padding: 12px 25px;
-      border-radius: 10px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    button:hover {
-      background-color: #005fcc;
-    }
-
-    a {
-      color: #0078ff;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banque • Connexion</title>
+    <link rel="stylesheet" href="CSS/style.css">
 </head>
+
 <body>
-  <div class="container">
-    <img class="logo" src="https://i.postimg.cc/yxKxf5qf/file-000000009b7861f78b615a6a6fe8ae03.png" alt="Logo Transfert Sécurisé">
-    <h1>Bienvenue sur<br>Transfert Sécurisé 💸</h1>
-    <p>Gérez facilement vos transferts d’argent avec<br>Mobile Money et Wave, en toute sécurité.</p>
-    <button onclick="window.location.href='login.html'">Se connecter</button>
-    <p>Pas encore de compte ? <a href="signup.html">Créer un compte</a></p>
-  </div>
+
+    <div class="container">
+
+        <!-- LOGO -->
+        <img src="assets/logo.png" class="logo" alt="Banque Logo">
+
+        <h2>Connexion sécurisée</h2>
+
+        <div class="input-group">
+            <label>Numéro de téléphone</label>
+            <input id="phone" type="text" placeholder="+225 05 07 19 28 52">
+        </div>
+
+        <button id="sendCode" class="btn-primary">Envoyer le code</button>
+
+        <div class="input-group">
+            <label>Code reçu (OTP)</label>
+            <input id="otp" type="text" placeholder="Entrez le code">
+        </div>
+
+        <button id="verifyCode" class="btn-success">Se connecter</button>
+
+        <div id="recaptcha-container"></div>
+
+    </div>
+
+    <script type="module" src="main.js"></script>
 </body>
 </html>
