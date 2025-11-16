@@ -1,39 +1,49 @@
-// Afficher le nom de l'utilisateur
-const nom = localStorage.getItem("nomUtilisateur");
-document.getElementById("user-name").textContent = nom ? nom : "Utilisateur";
+import { auth } from "./firebase.js";
+import {
+  RecaptchaVerifier,
+  signInWithPhoneNumber
+} from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
 
-// Simulation d’un solde de départ
-let balance = 25000;
-const balanceEl = document.getElementById("balance");
-balanceEl.textContent = balance.toLocaleString("fr-FR") + " FCFA";
+// ▶️ Activer invisible reCAPTCHA
+window.recaptchaVerifier = new RecaptchaVerifier(
+  "recaptcha-container",
+  { size: "invisible" },
+  auth
+);
 
-// 💰 Dépôt
-document.getElementById("add-money").addEventListener("click", () => {
-  const montant = prompt("Entrez le montant à déposer (FCFA) :");
-  if (montant && !isNaN(montant)) {
-    balance += Number(montant);
-    balanceEl.textContent = balance.toLocaleString("fr-FR") + " FCFA";
-    alert("✅ Dépôt réussi !");
+// ▶️ Envoi du SMS
+document.getElementById("btn-inscription").addEventListener("click", () => {
+  const phone = document.getElementById("phone").value;
+  const nom = document.getElementById("nom").value;
+
+  if (nom.trim() === "" || phone.trim() === "") {
+    alert("Veuillez remplir tous les champs.");
+    return;
   }
+
+  signInWithPhoneNumber(auth, phone, window.recaptchaVerifier)
+    .then((confirmationResult) => {
+      window.confirmationResult = confirmationResult;
+
+      alert("📩 Code envoyé sur votre numéro ✔️");
+      document.getElementById("sms-section").style.display = "block";
+    })
+    .catch((error) => {
+      alert("Erreur : " + error.message);
+    });
 });
 
-// 💸 Transfert
-document.getElementById("transfer-money").addEventListener("click", () => {
-  const destinataire = prompt("Numéro du destinataire (+225...) :");
-  const montant = prompt("Montant à transférer (FCFA) :");
-  if (destinataire && montant && !isNaN(montant)) {
-    if (balance >= montant) {
-      balance -= Number(montant);
-      balanceEl.textContent = balance.toLocaleString("fr-FR") + " FCFA";
-      alert(`💸 Transfert de ${montant} FCFA à ${destinataire} réussi !`);
-    } else {
-      alert("❌ Solde insuffisant !");
-    }
-  }
-});
+// ▶️ Vérification du code SMS
+document.getElementById("btn-valider").addEventListener("click", () => {
+  const code = document.getElementById("code").value;
 
-// 🚪 Déconnexion
-document.getElementById("logout").addEventListener("click", () => {
-  localStorage.removeItem("nomUtilisateur");
-  window.location.href = "inscription.html";
+  confirmationResult
+    .confirm(code)
+    .then((result) => {
+      alert("Compte créé avec succès ✔️");
+      window.location.href = "dashboard.html"; // redirection
+    })
+    .catch((error) => {
+      alert("Code incorrect ❌");
+    });
 });
